@@ -10,25 +10,30 @@ module.exports = db => db.define('order', {
   		this.setDataValue('date', Date.now())
   	}
   },
+	status: {
+		type: ENUM('created', 'processing', 'cancelled', 'completed'),
+		defaultValue: 'created',
+		allowNull: false
+	},
   subtotal:{
   	type: FLOAT(2),
   	validate: {
-  		notNull: true 
+  		notNull: true
   	}
-  }, 
+  },
   tax:{
   	type: FLOAT(2),
   	validate: {
-  		notNull: true 
+  		notNull: true
   	}
   },
   shippingOptions:{
   	type: ENUM('standard', 'express'),
   	defaultValue: 'standard',
   	validate: {
-  		notNull: true 
+  		notNull: true
   	}
-  } 
+  },
   shippingPrice: {
   	type: FLOAT(2),
   	set: function() {
@@ -38,74 +43,75 @@ module.exports = db => db.define('order', {
   firstName:{
   	type: STRING,
   	validate: {
-  		notNull: true 
+  		notNull: true
   	}
   },
   lastName:{
   	type: STRING,
   	validate: {
-  		notNull: true 
+  		notNull: true
   	}
   },
   email: {
   	type: STRING,
   	validate: {
   		isEmail: true,
-  		notNull: true 
+  		notNull: true
   	}
   },
   houseNumber:{
   	type: INTEGER,
   	validate: {
-  		notNull: true 
+  		notNull: true
   	}
   },
 
   addressLine1:{
   	type: STRING,
   	validate: {
-  		notNull: true 
+  		notNull: true
   	}
   },
   addressLine2:{
   	type: STRING,
   	validate: {
-  		notNull: true 
+  		notNull: true
   	}
   },
   city:{
   	type: STRING,
   	validate: {
-  		notNull: true 
+  		notNull: true
   	}
   },
   state:{
   	type: STRING,
   	validate: {
-  		notNull: true 
+  		notNull: true
   	}
   },
   creditCard: {
   	type: STRING,
   	validate: {
   		isCreditCard: true,
-  		notNull: true 
+  		notNull: true
   	}
   }
 }, {
   setterMethods: {
-  	//subtotal = Quantiny*Price of product 
+  	//subtotal = Quantiny*Price of product
   	//taxes = subtotal * state rate
-  }, {
+  },
   getterMethods: {
-  	//totalPrice = Quantiny*Price of product + shipping + taxes 
+  	//totalPrice = Quantiny*Price of product + shipping + taxes
   }
-  	
-  }
+
 
 })
 
 module.exports.associations = (Order, {User}) => {
   Order.belongsTo(User)
 }
+
+
 
