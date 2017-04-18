@@ -3,16 +3,32 @@
 const bcrypt = require('bcryptjs')
     , {STRING, ENUM, FLOAT, DATE, INTEGER} = require('sequelize')
 
-module.exports = db => db.define('orders', {
+module.exports = db => db.define('order', {
   date: {
   	type: DATE,
   	set: function() {
   		this.setDataValue('date', Date.now())
   	}
   },
-  subtotal: FLOAT(2),
-  tax: FLOAT(2),
-  shippingOptions: ENUM('standard', 'express'),
+  subtotal:{
+  	type: FLOAT(2),
+  	validate: {
+  		notNull: true 
+  	}
+  }, 
+  tax:{
+  	type: FLOAT(2),
+  	validate: {
+  		notNull: true 
+  	}
+  },
+  shippingOptions:{
+  	type: ENUM('standard', 'express'),
+  	defaultValue: 'standard',
+  	validate: {
+  		notNull: true 
+  	}
+  } 
   shippingPrice: {
   	type: FLOAT(2),
   	set: function() {
@@ -89,8 +105,7 @@ module.exports = db => db.define('orders', {
 
 })
 
-module.exports.associations = (Favorite, {Thing, User}) => {
-  Favorite.belongsTo(Thing)
-  Favorite.belongsTo(User)
+module.exports.associations = (Order, {User}) => {
+  Order.belongsTo(User)
 }
 
