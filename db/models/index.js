@@ -17,7 +17,7 @@ const app = require('APP')
       User: require('./user'),
       Product: require('./product'),
       Review: require('./review'),
-      Favorite: require('./favorite'),
+      // Favorite: require('./favorite'),
       Order: require('./order'),
       OrderProduct: require('./orderProduct')
       // ---------- Add new models here ----------
