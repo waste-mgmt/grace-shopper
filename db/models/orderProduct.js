@@ -2,7 +2,7 @@
 
 // bcrypt docs: https://www.npmjs.com/package/bcrypt
 const bcrypt = require('bcryptjs')
-    , {STRING, VIRTUAL, BOOLEAN, INTEGER, DATE, FLOAT} = require('sequelize')
+    , {INTEGER, FLOAT} = require('sequelize')
 
 module.exports = db => db.define('orderProduct', {
   quantity: {
