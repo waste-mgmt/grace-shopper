@@ -35,7 +35,7 @@ module.exports = db => db.define('users', {
       isCreditCard: true
     }
   },
-  creditCardExpirationDate: DATE,
+  creditCardExpirationDate: STRING,
   creditCardCVV: INTEGER,
   houseNumber: INTEGER,
   addressLine1: STRING,
