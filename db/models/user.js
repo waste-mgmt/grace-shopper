@@ -1,4 +1,4 @@
-'use strict'
+  'use strict'
 
 // bcrypt docs: https://www.npmjs.com/package/bcrypt
 const bcrypt = require('bcryptjs')
@@ -64,9 +64,11 @@ module.exports = db => db.define('users', {
   }
 })
 
-module.exports.associations = (User, {OAuth, Thing, Favorite}) => {
+module.exports.associations = (User, {OAuth, Thing, Favorite, Order}) => {
   User.hasOne(OAuth)
   User.belongsToMany(Thing, {as: 'favorites', through: Favorite})
+  User.hasMany(Order)
+  User.hasMany(Review)
 }
 
 const setEmailAndPassword = user => {
@@ -81,4 +83,5 @@ const setEmailAndPassword = user => {
     })
   )
 }
+
 
