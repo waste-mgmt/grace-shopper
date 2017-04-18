@@ -12,16 +12,20 @@ module.exports = require('express').Router()
       })
       .catch(next)
   })
-
+  // Specific product returned
   .get('/:id', (req, res, next) => {
     res.send(req.product)
   })
 
-
+// All Products returned
   .get('/', (req, res, next) => {
-    Product.findAll().then(allProducts => res.send(allProducts)).catch(next)
+    Product.findAll()
+      .then(allProducts => {
+      if (!allProducts) throw Error('omg no products 404!!')
+      res.send(allProducts)})
+      .catch(next)
   })
-
+// Create new product
   .post('/', (req, res, next) => {
       Product.create(req.body)
         .then(createdProduct => {
@@ -29,7 +33,7 @@ module.exports = require('express').Router()
         })
         .catch(next)
   })
-
+// Update specific product
   .put('/:id', (req, res, next) => {
     req.product.update(req.body)
       .then(updatedProduct => {
@@ -38,7 +42,7 @@ module.exports = require('express').Router()
       .catch(next)
   })
 
-
+// Delete specific product
   .delete('/:id', (req, res, next) => {
-    req.product.destroy().then(destroyedItem => console.log('destroyed',destroyedItem)).catch(next)
+    req.product.destroy().then(destroyedItem => res.sendStatus(204)).catch(next)
   })

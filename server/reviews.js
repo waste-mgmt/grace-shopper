@@ -12,12 +12,13 @@ module.exports = require('express').Router()
       })
       .catch(next)
   })
-
+// gets specific review
   .get('/:id', (req, res, next) => {
     res.send(req.review)
+    // if no ID is found, the error is handled above in the .param
   })
 
-
+// creates new review
   .post('/', (req, res, next) => {
     Review.create(req.body) // Front-End includes review info as well userId and productId
       .then(createdReview => {
@@ -26,6 +27,7 @@ module.exports = require('express').Router()
       .catch(next)
   })
 
+// updates specific review
   .put('/:id', (req, res, next) => {
     req.review.update(req.body)
       .then(updatedReview => {
@@ -34,7 +36,8 @@ module.exports = require('express').Router()
       .catch(next)
   })
 
-
+// deletes specific review
   .delete('/:id', (req, res, next) => {
-    req.review.destroy().then(destroyedItem => console.log('destroyed',destroyedItem)).catch(next)
+    req.review.destroy().then(destroyedItem => res.status(204).send()).catch(next)
+
   })
