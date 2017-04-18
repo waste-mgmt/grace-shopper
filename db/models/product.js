@@ -47,6 +47,9 @@ module.exports = db => db.define('product', {
 //this is the options object
 })
 
+
+
 // module.exports.associations = (Thing, {User, Favorite}) => {
+//
 //   Thing.belongsToMany(User, {as: 'lovers', through: Favorite})
 // }
