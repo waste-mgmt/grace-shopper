@@ -10,6 +10,11 @@ module.exports = db => db.define('order', {
   		this.setDataValue('date', Date.now())
   	}
   },
+	status: {
+		type: ENUM('created', 'processing', 'cancelled', 'completed'),
+		defaultValue: 'created',
+		allowNull: false
+	},
   subtotal:{
   	type: FLOAT(2),
   	validate: {

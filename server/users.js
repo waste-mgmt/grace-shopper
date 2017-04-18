@@ -22,70 +22,70 @@ module.exports = require('express').Router()
     })
     .catch(next);
   })
-
+  // show all users
   .get('/', (req, res, next) => {
     User.findAll()
     .then(allUsers => {
       if (!allUsers) res.status(404).send('No users found!');
-      res.send(allUsers);
+      else res.send(allUsers);
     })
     .catch(next);
   })
-
+  // create new user
   .post('/', (req, res, next) => {
     User.create(req.body)
     .then(newUser => res.send(newUser))
     .catch(next);
   })
-
+  // show one user
   .get('/:id', (req, res, next) => {
     res.send(req.user);
   })
-
+  // update user profile
   .put('/:id', (req, res, next) => {
     req.user.update(req.body)
     .then(updatedUser => res.send(updatedUser))
     .catch(next)
   })
-
+  // remove user from database
   .delete('/:id', (req, res, next) => {
     req.user.destroy()
     .then(() => res.sendStatus(204))
     .catch(next)
   })
-
+  // show all orders for a user
   .get('/:id/orders', (req, res, next) => {
     req.user.getOrders()
     .then(orders => {
       if (!orders) res.status(404).send('No orders found!');
-      res.send(orders);
+      else res.send(orders);
     })
     .catch(next)
   })
-
+  // show a particular order for a user
   .get('/:id/orders/:orderId', (req, res, next) => {
     req.user.getOrders({where: {id: req.params.orderId}})
     .then(order => {
       if (!order) res.status(404).send('No order found!');
-      res.send(order);
+      else res.send(order);
     })
     .catch(next)
   })
-
+  // show all reviews for a user
   .get('/:id/reviews', (req, res, next) => {
     req.user.getReviews()
     .then(reviews => {
       if (!reviews) res.status(404).send('No reviews found!');
-      res.send(reviews);
+      else res.send(reviews);
     })
     .catch(next)
   })
-
+  // show a particular review for a given user
   .get('/:id/reviews/:reviewId', (req, res, next) => {
     req.user.getReviews({where: {id: req.params.reviewId}})
     .then(review => {
       if (!review) res.status(404).send('No review found!');
-      res.send(review);
+      else res.send(review);
     })
     .catch(next)
   })
