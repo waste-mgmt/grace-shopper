@@ -9,11 +9,10 @@ module.exports = db => db.define('users', {
   lastName: STRING,
   email: {
     type: STRING,
+    unique: true,
     validate: {
       isEmail: true,
       notEmpty: true,
-      // not sure if this will work. need to test.
-      isUnique: checkUnique(this.email)
     }
   },
   photo: {
@@ -36,15 +35,14 @@ module.exports = db => db.define('users', {
       isCreditCard: true
     }
   },
+  creditCardExpirationDate: DATE,
+  creditCardCVV: INTEGER,
   houseNumber: INTEGER,
   addressLine1: STRING,
   addressLine2: STRING,
   city: STRING,
   // should state be forced as two letters, or left open to the user?
   state: STRING,
-  dateCreated: {
-    type: DATE,
-  },
   // We support oauth, so users may or may not have passwords.
   password_digest: STRING, // This column stores the hashed password in the DB, via the beforeCreate/beforeUpdate hooks
   password: VIRTUAL // Note that this is a virtual, and not actually stored in DB
@@ -53,7 +51,6 @@ module.exports = db => db.define('users', {
   hooks: {
     beforeCreate: setEmailAndPassword,
     beforeUpdate: setEmailAndPassword,
-    afterCreate: setDate,
   },
   instanceMethods: {
     // This method is a Promisified bcrypt.compare
@@ -85,13 +82,3 @@ const setEmailAndPassword = user => {
   )
 }
 
-const setDate = () => Date.now();
-
-function checkUnique (email)  {
-  let doesNotExist = true;
-  this.find({
-    where: {email: email}
-  })
-  .then(user => doesNotExist = user ? false : true)
-  return doesNotExist;
-}
