@@ -5,20 +5,20 @@ const {STRING, TEXT, FLOAT, INTEGER, ENUM} = require('sequelize')
 module.exports = db => db.define('product', {
   name: {
     type: STRING,
-    allowNull: false,
     validate: {
-      len: [5, 100]
+      len: [5, 100],
+      notNull: true
     }
   },
   description: {
     type: TEXT,
-    allowNull: false,
     validate: {
-      len: [140, 1400]
+      len: [140, 1400],
+      notNull: true
     }
   },
   price: {
-    type: FLOAT,
+    type: FLOAT(2),
     allowNull: false,
     validate: {
       min: 0
@@ -42,13 +42,9 @@ module.exports = db => db.define('product', {
     type: ENUM('animal', 'plant'),
     allowNull: false
   },
-  // advanced fields: date item added to the invetory (requires a join table)
+
 },{
-  // hooks
-  // getterMethods
-  // setterMethods
-  // classMethods
-  // instanceMethods
+//this is the options object
 })
 
 // module.exports.associations = (Thing, {User, Favorite}) => {
