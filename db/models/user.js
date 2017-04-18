@@ -12,19 +12,23 @@ module.exports = db => db.define('users', {
     validate: {
       isEmail: true,
       notEmpty: true,
+      // not sure if this will work. need to test.
+      isUnique: checkUnique(this.email)
     }
   },
   photo: {
     type: STRING,
+    default: `http://wpshowdown.com/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png`,
     validate: {
       // look out for problems with the isUrl
-      isUrl: true
+      isUrl: true,
+      notNull: true
     }
   },
   admin: {
     type: BOOLEAN,
     allowNull: false,
-    defaultValue: true
+    defaultValue: false
   },
   creditCard: {
     type: STRING,
@@ -82,3 +86,12 @@ const setEmailAndPassword = user => {
 }
 
 const setDate = () => Date.now();
+
+function checkUnique (email)  {
+  let doesNotExist = true;
+  this.find({
+    where: {email: email}
+  })
+  .then(user => doesNotExist = user ? false : true)
+  return doesNotExist;
+}
