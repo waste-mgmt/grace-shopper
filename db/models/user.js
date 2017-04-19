@@ -2,7 +2,7 @@
 
 // bcrypt docs: https://www.npmjs.com/package/bcrypt
 const bcrypt = require('bcryptjs')
-    , {STRING, VIRTUAL, BOOLEAN, INTEGER, DATE} = require('sequelize')
+    , {STRING, VIRTUAL, BOOLEAN, INTEGER} = require('sequelize')
 
 module.exports = db => db.define('users', {
   firstName: STRING,
@@ -18,10 +18,10 @@ module.exports = db => db.define('users', {
   photo: {
     type: STRING,
     default: `http://wpshowdown.com/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png`,
+    allowNull: false,
     validate: {
       // look out for problems with the isUrl
       isUrl: true,
-      notNull: true
     }
   },
   admin: {
@@ -64,7 +64,7 @@ module.exports = db => db.define('users', {
   }
 })
 
-module.exports.associations = (User, {OAuth, Thing, Favorite, Order, Review}) => {
+module.exports.associations = (User, {OAuth, Order, Review}) => {
   User.hasOne(OAuth)
   // User.belongsToMany(Thing, {as: 'favorites', through: Favorite})
   User.hasMany(Order)
