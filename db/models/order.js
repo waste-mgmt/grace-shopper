@@ -21,7 +21,7 @@ module.exports = db => db.define('order', {
   	type: DECIMAL(10,2),
     allowNull: false,
   },
-  shippingOptions:{
+  shippingOption:{
   	type: ENUM('standard', 'express'),
   	defaultValue: 'standard',
     allowNull: false
@@ -29,7 +29,7 @@ module.exports = db => db.define('order', {
   shippingPrice: {
     type: DECIMAL(10,2),
     get: function() {
-      return this.shippingOptions === 'standard' ? 2.00 : 5.00;
+      return this.shippingOption === 'standard' ? 2.00 : 5.00;
     }
   },
   firstName:{
@@ -82,10 +82,10 @@ module.exports = db => db.define('order', {
   getterMethods: {
   	//totalPrice = Quantiny*Price of product + shipping + taxes
   },
-  hook: {
-    afterUpdate: function() {
-      if (!this.sendDate && this.status === 'completed') {
-        this.sendDate = Date.now();
+  hooks: {
+    afterUpdate: function(order) {
+      if (!order.sendDate && order.status === 'completed') {
+        order.sendDate = Date.now();
       }
     }
   }
