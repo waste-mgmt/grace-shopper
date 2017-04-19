@@ -10,9 +10,9 @@ module.exports = db => db.define('review', {
     content: {
         type: TEXT,
         validate: {
-            notNull: true,
             len: [100, 2800]
-            }
+        },
+        allowNull: false
     },
     rating: {
         type: ENUM(1,2,3,4,5)
