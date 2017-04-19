@@ -5,16 +5,16 @@ const {STRING, TEXT, FLOAT, INTEGER, ENUM} = require('sequelize')
 module.exports = db => db.define('product', {
   name: {
     type: STRING,
+    allowNull: false,
     validate: {
       len: [5, 100],
-      notNull: true
     }
   },
   description: {
     type: TEXT,
+    allowNull: false,
     validate: {
       len: [140, 1400],
-      notNull: true
     }
   },
   price: {
