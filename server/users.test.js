@@ -6,35 +6,112 @@ const request = require('supertest')
 /* global describe it before afterEach */
 
 describe('/api/users', () => {
+
+  const User = db.User;
+
   before('Await database sync', () => db.didSync);
   afterEach('Clear the tables', () => db.truncate({ cascade: true }));
 
   // 'GET /'
   describe('GET /', () => {
+
     describe('gets all users', () => {
-      it('returns all users in database', () => {
 
+      before('Dummy data', () => {
+        return User.create({
+          firstName: 'a',
+          lastName: 'b',
+          email: 'a@b.com',
+          // photo: default,
+          admin: false,
+          creditCard: 5105105105105100,
+          creditCardExpirationDate: '12/18',
+          creditCardCVV: 333,
+          houseNumber: 1234,
+          addressLine1: 'c',
+          city: 'd',
+          state: 'NY',
+      })
+        .then( () => {
+          return User.create({
+            firstName: 'f',
+            lastName: 'd',
+            email: 'e@b.com',
+            // photo: default,
+            admin: false,
+            creditCard: 5105105105105100,
+            creditCardExpirationDate: '12/18',
+            creditCardCVV: 333,
+            houseNumber: 1234,
+            addressLine1: 'r',
+            city: 'g',
+            state: 'NY',
+          });
+        })});
+      afterEach('Clear the tables', () => db.truncate({ cascade: true }));
+
+      it('returns all users in database', (done) => {
+        request(app)
+          .get(`/api/users`)
+          .expect(200)
+          .end( (err, res) => {
+            if(err) return done(err);
+            expect(res.body).to.be.instanceOf(Array);
+            expect(res.body).to.have.length(2);
+            done();
+          });
       });
-      it('returns 404 if no users in database', () => {
+    });
 
+    describe('does not get non-existent users', () => {
+      it('returns 404 if no users in database', (done) => {
+        request(app)
+          .get(`/api/users`)
+          .expect(404, done);
       });
     });
   });
 
-  // 'POST /'
+  'POST /'
   describe('POST /', () => {
     describe('creates new user', () => {
-      it('returns new user', () => {
-
+      it('returns new user', (done) => {
+        request(app)
+          .post(`/api/users`)
+          .send({
+            firstName: 'f',
+            lastName: 'd',
+            email: 'e@b.com',
+            // photo: default,
+            admin: false,
+            creditCard: 5105105105105100,
+            creditCardExpirationDate: '12/18',
+            creditCardCVV: 333,
+            houseNumber: 1234,
+            addressLine1: 'r',
+            city: 'g',
+            state: 'NY',
+          })
+          // .expect(201)
+          .end( (err, res) => {
+            if (err) return done(err);
+            expect(res.body.firstName).to.equal('f');
+            User.findById(res.body.id)
+              .then( user => {
+                expect(user).to.not.be.null;
+                done();
+              })
+              .catch(done);
+          });
       });
     });
     describe('admins and new users can create user', () => {
-      it('admins can create users', () => {
+      xit('admins can create users', () => {
 
       });
-      it('new users can create users', () => {
+      xit('new users can create users', () => {
 
-      })
+      });
     });
   });
 
@@ -142,7 +219,7 @@ describe('/api/users', () => {
 
       });
   });
-
+});
 
 
   // describe('GET /:id', () =>
@@ -176,4 +253,3 @@ describe('/api/users', () => {
   //           email: 'eve@interloper.com'
   //         })))
   //   }))
-})
