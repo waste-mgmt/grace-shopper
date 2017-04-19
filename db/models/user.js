@@ -17,7 +17,7 @@ module.exports = db => db.define('users', {
   },
   photo: {
     type: STRING,
-    default: `http://wpshowdown.com/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png`,
+    defaultValue: `http://wpshowdown.com/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png`,
     allowNull: false,
     validate: {
       // look out for problems with the isUrl

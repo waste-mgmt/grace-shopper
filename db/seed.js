@@ -1,26 +1,26 @@
 'use strict'
 
+/*
+ https://github.com/chriso/validator.js/blob/master/test/validators.js
+
+ above is the sequelize validate tests which includes examples of valid test data
+
+ */
+
 const db = require('APP/db')
     , {User, Product, Order, Review, OrderProduct, Promise} = db
     , {mapValues} = require('lodash')
 
-// function seedEverything() {
-//   const seeded = {
-//     users: users(),
-//     things: things(),
-//   }
-
-//   seeded.favorites = favorites(seeded)
 
 function seedEverything() {
   const seeded = {
     users: users(),
-    orders: orders(),
-    reviews: reviews(),
-    products: products(),
-    orderProducts: orderProducts()
+    products: products()
   }
 
+  seeded.reviews = reviews(seeded)
+  seeded.orders= orders(seeded)
+  seeded.orderProducts = orderProducts(seeded)
   return Promise.props(seeded)
 }
 
@@ -33,9 +33,9 @@ const users = seed(User, {
     firstName: 'Implement',
     lastName: 'Query',
     email: 'getalist@all.com',
-    // photo: go to default
+    // photo: ,
     admin: true,
-    creditCard: '4444 2222 3333 4444',
+    creditCard: '4716-2210-5188-5662',
     creditCardExpirationDate: '12/18',
     creditCardCVV: 123,
     houseNumber: 1234,
@@ -50,7 +50,7 @@ const users = seed(User, {
     email: 'solvedby@all.com',
     // photo: go to default
     // admin: go to default
-    creditCard: '4444 3333 2222 1111',
+    creditCard: '6234917882863855',
     creditCardExpirationDate: '18/12',
     creditCardCVV: 321,
     houseNumber: 4321,
@@ -64,7 +64,7 @@ const users = seed(User, {
 const products = seed(Product, {
   full: {
     name: 'Circular Array',
-    description: 'Implement a Circular Array class that supports an array-like data structure which can be efficiently rotated',
+    description: 'Implement a Circular Array class that supports an array-like data structure which can be efficiently rotated efficiently rotated efficiently rotated efficiently rotated efficiently rotated efficiently rotated',
     price: 14.34,
     inventory: 40,
     // photo: go to default
@@ -80,94 +80,85 @@ const products = seed(Product, {
   }
 })
 
-const orders = seed(Order, {
-  smallest: {
-    // date: let setter do it
-    // status: go to default
-    subtotal: 44.44,
-    tax: 4.44,
-    // shippingOptions: go to default
-    // shippingPrice: let setter do it
-    firstName: 'Implement',
-    lastName: 'Query',
-    email: 'getalist@all.com',
-    houseNumber: 1234,
-    addressLine1: 'Inner Join rd',
-    // addressLine2:
-    city: 'You Should Double',
-    state: 'NY',
-    creditCard: '4444 2222 3333 4444'
-  },
-  dingus: {
-    // date: let setter do it
-    // status: go to default
-    subtotal: 555.44,
-    tax: 45.55,
-    // shippingOptions: go to default
-    // shippingPrice: let setter do it
-    firstName: 'Derek',
-    lastName: 'Jeter',
-    email: 'doofus@all.com',
-    houseNumber: 4444,
-    addressLine1: 'Outer Join rd',
-    // addressLine2:
-    city: 'You Coldn"t Double',
-    state: 'NY',
-    creditCard: '4444 8888 5555 9999'
-  },
-  largest: {
-    // date: let setter do it
-    // status: go to default
-    subtotal: 22.44,
-    tax: 4.22,
-    // shippingOptions: go to default
-    // shippingPrice: let setter do it
-    firstName: 'This',
-    lastName: 'Problem',
-    email: 'solvedby@all.com',
-    houseNumber: 4321,
-    addressLine1: 'DepthFirst',
-    // addressLine2:
-    city: 'Solutions',
-    state: 'NY',
-    creditCard: '4444 3333 2222 1111'
-  }
-})
 
-const reviews = seed(Review, {
-  cracking: {
-    title: '189',
-    content: 'Numebrs are randomly generated and passed to a method. Write a program to find and maintain the median value as new values are generated.',
-    rating: 5
-  },
-  multi: {
-    title: 'Re-space',
-    content: 'Consider a simple data structure called BiNode, which has pointers to two other nodes.',
-    rating: 3
-  },
-  George: {
-    title: 'Re-shorters',
-    content: 'Given a string b and an array of smaller strings T, design a method to search b for each small string in T',
-    rating: 1
-  }
-})
+const orders = seed(Order,
+  ({users}) => ({
+    smallest: {
+      subtotal: 44.44,
+      tax: 4.44,
+      // shippingOptions: go to default
+      // shippingPrice: let setter do it
+      firstName: 'Implement',
+      lastName: 'Query',
+      email: 'getalist@all.com',
+      houseNumber: 1234,
+      addressLine1: 'Inner Join rd',
+      // addressLine2:
+      city: 'You Should Double',
+      state: 'NY',
+      creditCard: '375556917985515',
+      user_id: users.god.id
+    },
+    dingus: {
+      subtotal: 555.44,
+      tax: 45.55,
+      // shippingOptions: go to default
+      // shippingPrice: let setter do it
+      firstName: 'Derek',
+      lastName: 'Jeter',
+      email: 'doofus@all.com',
+      houseNumber: 4444,
+      addressLine1: 'Outer Join rd',
+      // addressLine2:
+      city: 'You Coldn"t Double',
+      state: 'NY',
+      creditCard: '2718760626256570',
+      user_id: users.barack.id
+    }
+  })
+)
 
-const orderProducts = seed(OrderProduct, {
+const reviews = seed(Review,
+  ({users, products}) => ({
+    cracking: {
+      title: '189',
+      content: 'Numebrs are randomly generated and passed to a method. Write a program to find and maintain the median value as new values are generated.',
+      rating: 5,
+      user_id: users.god.id,
+      product_id: products.full.id
+    },
+    multi: {
+      title: 'Re-space',
+      content: 'Consider a simple data structure called BiNode, which has pointers to two other nodes. Lorem ipsum Lorem ipsum Lorem ipsum v v Lorem ipsum Lorem ipsum Lorem ipsum',
+      rating: 3,
+      user_id: users.barack.id,
+      product_id: products.join.id
+    }
+  })
+)
+
+
+
+const orderProducts = seed(OrderProduct, ({products,orders}) =>  ({
   smallest: {
     quantity: 100,
-    unitPrice: 1000.00
+    unitPrice: 1000.00,
+    order_id:orders.smallest.id,
+    product_id:products.full.id
   },
   dingus: {
     quantity: 44,
-    unitPrice: 111.00
+    unitPrice: 111.00,
+    order_id:orders.dingus.id,
+    product_id:products.join.id
   },
   largest: {
     quantity: 445,
     unitPrice: 4.00
   }
-})
+}))
 
-// const favorites = seed(Favorite,
+// const favorites = seed(User,
 //   // We're specifying a function here, rather than just a rows object.
 //   // Using a function lets us receive the previously-seeded rows (the seed
 //   // function does this wiring for us).
@@ -183,11 +174,11 @@ const orderProducts = seed(OrderProduct, {
 //                                    // that we created in the user seed above.
 //                                    // The seed function wires the promises so that it'll
 //                                    // have been created already.
-//       thing_id: things.surfing.id  // Same thing for things.
+//       product_id: products.surfing.id  // Same thing for things.
 //     },
 //     'god is into smiting': {
 //       user_id: users.god.id,
-//       thing_id: things.smiting.id
+//       product_id: products.smiting.id
 //     },
 //     'obama loves puppies': {
 //       user_id: users.barack.id,
