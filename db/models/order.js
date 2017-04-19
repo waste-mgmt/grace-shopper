@@ -36,7 +36,7 @@ module.exports = db => db.define('order', {
   },
   firstName:{
   	type: STRING,
-    allowNUll: false
+    allowNull: false
   },
   lastName:{
   	type: STRING,
