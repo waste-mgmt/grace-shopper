@@ -60,7 +60,6 @@ module.exports = db => db.define('order', {
   },
   addressLine2:{
   	type: STRING,
-    allowNull: false,
   },
   city:{
   	type: STRING,
