@@ -4,11 +4,9 @@ const bcrypt = require('bcryptjs')
     , {STRING, ENUM, DECIMAL, DATE, INTEGER} = require('sequelize')
 
 module.exports = db => db.define('order', {
-  date: {
+  sendDate: {
   	type: DATE,
-  	set: function() {
-  		this.setDataValue('date', Date.now())
-  	}
+    allowNull: true
   },
 	status: {
 		type: ENUM('created', 'processing', 'cancelled', 'completed'),
@@ -29,10 +27,10 @@ module.exports = db => db.define('order', {
     allowNull: false
   },
   shippingPrice: {
-  	type: DECIMAL(10,2),
-  	set: function() {
-  		this.setDataValue('shippingPrice', this.shippingOptions === 'standard' ? 2.00 : 5.00)
-  	}
+    type: DECIMAL(10,2),
+    get: function() {
+      return this.shippingOptions === 'standard' ? 2.00 : 5.00;
+    }
   },
   firstName:{
   	type: STRING,
@@ -83,6 +81,13 @@ module.exports = db => db.define('order', {
   },
   getterMethods: {
   	//totalPrice = Quantiny*Price of product + shipping + taxes
+  },
+  hook: {
+    afterUpdate: function() {
+      if (!this.sendDate && this.status === 'completed') {
+        this.sendDate = Date.now();
+      }
+    }
   }
 
 
