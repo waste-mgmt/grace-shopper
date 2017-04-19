@@ -17,22 +17,16 @@ module.exports = db => db.define('order', {
 	},
   subtotal:{
   	type: FLOAT(2),
-  	validate: {
-  		notNull: true
-  	}
+    allowNull: false,
   },
   tax:{
   	type: FLOAT(2),
-  	validate: {
-  		notNull: true
-  	}
+    allowNull: false,
   },
   shippingOptions:{
   	type: ENUM('standard', 'express'),
   	defaultValue: 'standard',
-  	validate: {
-  		notNull: true
-  	}
+    allowNull: false
   },
   shippingPrice: {
   	type: FLOAT(2),
@@ -42,60 +36,46 @@ module.exports = db => db.define('order', {
   },
   firstName:{
   	type: STRING,
-  	validate: {
-  		notNull: true
-  	}
+    allowNUll: false
   },
   lastName:{
   	type: STRING,
-  	validate: {
-  		notNull: true
-  	}
+    allowNull: false
   },
   email: {
   	type: STRING,
+    allowNull: false,
   	validate: {
   		isEmail: true,
-  		notNull: true
   	}
   },
   houseNumber:{
   	type: INTEGER,
-  	validate: {
-  		notNull: true
-  	}
+    allowNull: false,
   },
 
   addressLine1:{
   	type: STRING,
-  	validate: {
-  		notNull: true
-  	}
+    allowNull: false,
   },
   addressLine2:{
   	type: STRING,
-  	validate: {
-  		notNull: true
-  	}
+    allowNull: false,
   },
   city:{
   	type: STRING,
-  	validate: {
-  		notNull: true
-  	}
+    allowNull: false,
   },
   state:{
   	type: STRING,
-  	validate: {
-  		notNull: true
-  	}
+    allowNull: false,
   },
   creditCard: {
   	type: STRING,
   	validate: {
   		isCreditCard: true,
-  		notNull: true
-  	}
+  	},
+    allowNull: false,
   }
 }, {
   setterMethods: {
