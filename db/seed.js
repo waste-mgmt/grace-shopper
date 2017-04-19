@@ -1,5 +1,12 @@
 'use strict'
 
+/*
+ https://github.com/chriso/validator.js/blob/master/test/validators.js
+
+ above is the sequelize validate tests which includes examples of valid test data
+
+ */
+
 const db = require('APP/db')
     , {User, Product, Order, Review, OrderProduct, Promise} = db
     , {mapValues} = require('lodash')
@@ -33,9 +40,9 @@ const users = seed(User, {
     firstName: 'Implement',
     lastName: 'Query',
     email: 'getalist@all.com',
-    // photo: go to default
+    // photo: ,
     admin: true,
-    creditCard: '4444 2222 3333 4444',
+    creditCard: '4716-2210-5188-5662',
     creditCardExpirationDate: '12/18',
     creditCardCVV: 123,
     houseNumber: 1234,
@@ -50,7 +57,7 @@ const users = seed(User, {
     email: 'solvedby@all.com',
     // photo: go to default
     // admin: go to default
-    creditCard: '4444 3333 2222 1111',
+    creditCard: '6234917882863855',
     creditCardExpirationDate: '18/12',
     creditCardCVV: 321,
     houseNumber: 4321,
@@ -64,7 +71,7 @@ const users = seed(User, {
 const products = seed(Product, {
   full: {
     name: 'Circular Array',
-    description: 'Implement a Circular Array class that supports an array-like data structure which can be efficiently rotated',
+    description: 'Implement a Circular Array class that supports an array-like data structure which can be efficiently rotated efficiently rotated efficiently rotated efficiently rotated efficiently rotated efficiently rotated',
     price: 14.34,
     inventory: 40,
     // photo: go to default
@@ -96,7 +103,7 @@ const orders = seed(Order, {
     // addressLine2:
     city: 'You Should Double',
     state: 'NY',
-    creditCard: '4444 2222 3333 4444'
+    creditCard: '2222155765072228'
   },
   dingus: {
     // date: let setter do it
@@ -113,7 +120,7 @@ const orders = seed(Order, {
     // addressLine2:
     city: 'You Coldn"t Double',
     state: 'NY',
-    creditCard: '4444 8888 5555 9999'
+    creditCard: '375556917985515'
   },
   largest: {
     // date: let setter do it
@@ -130,7 +137,7 @@ const orders = seed(Order, {
     // addressLine2:
     city: 'Solutions',
     state: 'NY',
-    creditCard: '4444 3333 2222 1111'
+    creditCard: '2718760626256570'
   }
 })
 
@@ -142,12 +149,12 @@ const reviews = seed(Review, {
   },
   multi: {
     title: 'Re-space',
-    content: 'Consider a simple data structure called BiNode, which has pointers to two other nodes.',
+    content: 'Consider a simple data structure called BiNode, which has pointers to two other nodes. Lorem ipsum Lorem ipsum Lorem ipsum v v Lorem ipsum Lorem ipsum Lorem ipsum',
     rating: 3
   },
   George: {
     title: 'Re-shorters',
-    content: 'Given a string b and an array of smaller strings T, design a method to search b for each small string in T',
+    content: 'Given a string b and an array of smaller strings T, design a method to search b for each small string in T Lorem ipsum Lorem ipsum v v Lorem ipsum Lorem ipsum',
     rating: 1
   }
 })
