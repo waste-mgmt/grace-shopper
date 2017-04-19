@@ -4,10 +4,11 @@ const bcrypt = require('bcryptjs')
     , {STRING, ENUM, FLOAT, DATE, INTEGER} = require('sequelize')
 
 module.exports = db => db.define('order', {
-  date: {
+  // sequelize models have a data created field; what we're interested in is the date when the order is completed, which is what this field is for
+  orderSendDate: {
   	type: DATE,
   	set: function() {
-  		this.setDataValue('date', Date.now())
+      if (this.status === 'completed') this.setDataValue('orderSendDate', Date.now());
   	}
   },
 	status: {
