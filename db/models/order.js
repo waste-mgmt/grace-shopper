@@ -1,7 +1,7 @@
 'use strict'
 
 const bcrypt = require('bcryptjs')
-    , {STRING, ENUM, FLOAT, DATE, INTEGER} = require('sequelize')
+    , {STRING, ENUM, DECIMAL, DATE, INTEGER} = require('sequelize')
 
 module.exports = db => db.define('order', {
   date: {
@@ -16,11 +16,11 @@ module.exports = db => db.define('order', {
 		allowNull: false
 	},
   subtotal:{
-  	type: FLOAT(2),
+  	type: DECIMAL(10,2),
     allowNull: false,
   },
   tax:{
-  	type: FLOAT(2),
+  	type: DECIMAL(10,2),
     allowNull: false,
   },
   shippingOptions:{
@@ -29,7 +29,7 @@ module.exports = db => db.define('order', {
     allowNull: false
   },
   shippingPrice: {
-  	type: FLOAT(2),
+  	type: DECIMAL(10,2),
   	set: function() {
   		this.setDataValue('shippingPrice', this.shippingOptions === 'standard' ? 2.00 : 5.00)
   	}

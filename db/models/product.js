@@ -1,6 +1,6 @@
 'use strict'
 
-const {STRING, TEXT, FLOAT, INTEGER, ENUM} = require('sequelize')
+const {STRING, TEXT, DECIMAL, INTEGER, ENUM} = require('sequelize')
 
 module.exports = db => db.define('product', {
   name: {
@@ -18,7 +18,7 @@ module.exports = db => db.define('product', {
     }
   },
   price: {
-    type: FLOAT(2),
+    type: DECIMAL(10,2),
     allowNull: false,
     validate: {
       min: 0
