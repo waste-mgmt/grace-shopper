@@ -26,7 +26,7 @@ module.exports = require('express').Router()
   .get('/', (req, res, next) => {
     User.findAll()
     .then(allUsers => {
-      if (!allUsers) res.status(404).send('No users found!');
+      if (!allUsers.length) res.status(404).send('No users found!');
       else res.send(allUsers);
     })
     .catch(next);
