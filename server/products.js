@@ -4,7 +4,7 @@ const Product = db.model('product')
 module.exports = require('express').Router()
 
   .param('id', (req, res, next, id) => {
-    Product.findbyId(id)
+    Product.findById(id)
       .then(foundProduct => {
         if (!foundProduct) {
           const err = new Error ('No products found');
@@ -42,7 +42,7 @@ module.exports = require('express').Router()
   .put('/:id', (req, res, next) => {
     req.product.update(req.body)
       .then(updatedProduct => {
-        res.send(updatedProduct)
+        res.status(201).send(updatedProduct)
       })
       .catch(next)
   })
