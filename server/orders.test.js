@@ -10,60 +10,67 @@ describe('/api/orders', () => {
   before('Await database sync', () => db.didSync);
   afterEach('Clear the tables', () => db.truncate({ cascade: true }));
 
-  let o1 = '';
-  let o2 = '';
-  let o3 = '';
-
-  beforeEach('Dummy Data', () => {
-    const first = Order.create({
-      subtotal: 101.11,
-      tax: 1.11,
-      firstName: 'bill',
-      lastName: 'cutting',
-      email: 'bullcitting@gmail.com',
-      houseNumber: 123,
-      addressLine1: 'chicago',
-      city: 'new york',
-      state: 'NY',
-      creditCard: 5105105105105100,
+  describe('does not return non-existent orders', () => {
+    it('returns 404 if no orders in database', done => {
+      request(app)
+        .get(`/api/orders`)
+        .expect(404, done);
     });
-    const second = Order.create({
-      subtotal: 234.21,
-      tax: 2.21,
-      firstName: 'daren',
-      lastName: 'mitch',
-      email: 'dmitch@gmail.com',
-      houseNumber: 332,
-      addressLine1: 'new york',
-      city: 'new york',
-      state: 'NY',
-      creditCard: 5105105105105100,
-    });
-    const third = Order.create({
-      subtotal: 66.66,
-      tax: 6.66,
-      firstName: 'philly',
-      lastName: 'cheese',
-      email: 'sandwich@gmail.com',
-      houseNumber: 555,
-      addressLine1: 'philly',
-      city: 'new york',
-      state: 'NY',
-      creditCard: 5105105105105100,
-    });
-
-    return Promise.all([first, second, third])
-      .then(([firstO, secondO, thirdO]) => {
-        o1 = firstO.id;
-        o2 = secondO.id;
-        o3 = thirdO.id;
-      })
-      .catch();
   });
-  
-  afterEach('Clear the tables', () => db.truncate({ cascade: true }));
 
+  describe('gets/posts/puts/deletes existing orders', () => {
 
+    let o1 = '';
+    let o2 = '';
+    let o3 = '';
+
+    beforeEach('Dummy Data', () => {
+      const first = Order.create({
+        subtotal: 101.11,
+        tax: 1.11,
+        firstName: 'bill',
+        lastName: 'cutting',
+        email: 'bullcitting@gmail.com',
+        houseNumber: 123,
+        addressLine1: 'chicago',
+        city: 'new york',
+        state: 'NY',
+        creditCard: 5105105105105100,
+      });
+      const second = Order.create({
+        subtotal: 234.21,
+        tax: 2.21,
+        firstName: 'daren',
+        lastName: 'mitch',
+        email: 'dmitch@gmail.com',
+        houseNumber: 332,
+        addressLine1: 'new york',
+        city: 'new york',
+        state: 'NY',
+        creditCard: 5105105105105100,
+      });
+      const third = Order.create({
+        subtotal: 66.66,
+        tax: 6.66,
+        firstName: 'philly',
+        lastName: 'cheese',
+        email: 'sandwich@gmail.com',
+        houseNumber: 555,
+        addressLine1: 'philly',
+        city: 'new york',
+        state: 'NY',
+        creditCard: 5105105105105100,
+      });
+
+      return Promise.all([first, second, third])
+        .then(([firstO, secondO, thirdO]) => {
+          o1 = firstO.id;
+          o2 = secondO.id;
+          o3 = thirdO.id;
+        })
+        .catch();
+    });
+    
     describe('gets all orders', () => {
       it('gets all orders in database', done => {
         request(app)
@@ -77,13 +84,6 @@ describe('/api/orders', () => {
           });
       });
     });
-    describe('does not return non-existent orders', () => {
-      it('returns 404 if no users in database', done => {
-        request(app)
-          .get(`/api/orders`)
-          .expect(404, done);
-      });
-    })
     // test not working;
 
     describe('gets one order', () => {
@@ -142,7 +142,7 @@ describe('/api/orders', () => {
                 done();
               })
               .catch(done);
-          })
+          });
       });
     });
 
@@ -180,5 +180,5 @@ describe('/api/orders', () => {
           });
       });
     });
-
+  });
 });
