@@ -10,7 +10,7 @@ module.exports = db => db.define('review', {
     content: {
         type: TEXT,
         validate: {
-            len: [100, 2800]
+            len: [50, 2800]
         },
         allowNull: false
     },
