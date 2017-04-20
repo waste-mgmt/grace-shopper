@@ -45,13 +45,13 @@ module.exports = require('express').Router()
   .put('/:id', (req, res, next) => {
     req.user.update(req.body)
     .then(updatedUser => res.send(updatedUser))
-    .catch(next)
+    .catch(next);
   })
   // remove user from database
   .delete('/:id', (req, res, next) => {
     req.user.destroy()
     .then(() => res.sendStatus(204))
-    .catch(next)
+    .catch(next);
   })
   // show all orders for a user
   .get('/:id/orders', (req, res, next) => {
@@ -60,7 +60,7 @@ module.exports = require('express').Router()
       if (!orders) res.status(404).send('No orders found!');
       else res.send(orders);
     })
-    .catch(next)
+    .catch(next);
   })
   // show a particular order for a user
   .get('/:id/orders/:orderId', (req, res, next) => {
@@ -69,7 +69,7 @@ module.exports = require('express').Router()
       if (!order) res.status(404).send('No order found!');
       else res.send(order);
     })
-    .catch(next)
+    .catch(next);
   })
   // show all reviews for a user
   .get('/:id/reviews', (req, res, next) => {
@@ -78,7 +78,7 @@ module.exports = require('express').Router()
       if (!reviews) res.status(404).send('No reviews found!');
       else res.send(reviews);
     })
-    .catch(next)
+    .catch(next);
   })
   // show a particular review for a given user
   .get('/:id/reviews/:reviewId', (req, res, next) => {
@@ -87,7 +87,7 @@ module.exports = require('express').Router()
       if (!review) res.status(404).send('No review found!');
       else res.send(review);
     })
-    .catch(next)
+    .catch(next);
   })
 
   // .get('/',
