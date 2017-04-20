@@ -6,9 +6,13 @@ module.exports = require('express').Router()
   .param('id', (req, res, next, id) => {
     Review.findById(id)
       .then(foundReview => {
-        if (!foundReview) throw Error('omg error 404')
-        req.review = foundReview
-        next()
+      if (!foundReview) {
+        const err = new Error ('No user found!');
+        err.status = 404;
+        throw err;
+      }
+      req.review = foundReview;
+      next()
       })
       .catch(next)
   })
