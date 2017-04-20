@@ -97,7 +97,7 @@ const orders = seed(Order,
       city: 'You Should Double',
       state: 'NY',
       creditCard: '375556917985515',
-      user_id: users.god.id
+      users_id: users.god.id
     },
     dingus: {
       subtotal: 555.44,
@@ -113,7 +113,7 @@ const orders = seed(Order,
       city: 'You Coldn"t Double',
       state: 'NY',
       creditCard: '2718760626256570',
-      user_id: users.barack.id
+      users_id: users.barack.id
     }
   })
 )
@@ -124,14 +124,14 @@ const reviews = seed(Review,
       title: '189',
       content: 'Numebrs are randomly generated and passed to a method. Write a program to find and maintain the median value as new values are generated.',
       rating: 5,
-      user_id: users.god.id,
+      users_id: users.god.id,
       product_id: products.full.id
     },
     multi: {
       title: 'Re-space',
       content: 'Consider a simple data structure called BiNode, which has pointers to two other nodes. Lorem ipsum Lorem ipsum Lorem ipsum v v Lorem ipsum Lorem ipsum Lorem ipsum',
       rating: 3,
-      user_id: users.barack.id,
+      users_id: users.barack.id,
       product_id: products.join.id
     }
   })

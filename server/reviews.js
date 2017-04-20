@@ -4,7 +4,7 @@ const Review = db.model('review')
 module.exports = require('express').Router()
 
   .param('id', (req, res, next, id) => {
-    Review.findbyId(id)
+    Review.findById(id)
       .then(foundReview => {
         if (!foundReview) throw Error('omg error 404')
         req.review = foundReview
