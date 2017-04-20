@@ -34,7 +34,7 @@ module.exports = require('express').Router()
   // create new user
   .post('/', (req, res, next) => {
     User.create(req.body)
-    .then(newUser => res.send(newUser))
+    .then(newUser => res.status(201).send(newUser))
     .catch(next);
   })
   // show one user
@@ -44,7 +44,7 @@ module.exports = require('express').Router()
   // update user profile
   .put('/:id', (req, res, next) => {
     req.user.update(req.body)
-    .then(updatedUser => res.send(updatedUser))
+    .then(updatedUser => res.status(201).send(updatedUser))
     .catch(next);
   })
   // remove user from database
