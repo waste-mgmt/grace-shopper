@@ -6,23 +6,28 @@ module.exports = require('express').Router()
   .param('id', (req, res, next, id) => {
     Product.findbyId(id)
       .then(foundProduct => {
-        if (!foundProduct) throw Error('omg error 404')
-        req.product = foundProduct
-        next()
+        if (!foundProduct) {
+          const err = new Error ('No products found');
+          err.status = 404;
+          throw err;
+        }
+        req.product = foundProduct;
+        next();
       })
-      .catch(next)
+      .catch(next);
   })
   // Specific product returned
   .get('/:id', (req, res, next) => {
-    res.send(req.product)
+    res.send(req.product);
   })
 
 // All Products returned
   .get('/', (req, res, next) => {
     Product.findAll()
       .then(allProducts => {
-      if (!allProducts) throw Error('omg no products 404!!')
-      res.send(allProducts)})
+        if(!allProducts.length) res.status(404).send('No products found!');
+        else res.send(allProducts);
+      })
       .catch(next)
   })
 // Create new product
