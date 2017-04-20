@@ -27,7 +27,7 @@ module.exports = require('express').Router()
   .get('/', (req, res, next) => {
     Order.findAll()
     .then(allOrders => {
-      if (!allOrders) res.send('No orders found!');
+      if (!allOrders.length) res.status(404).send('No orders found!');
       else res.send(allOrders);
     })
     .catch(next);
@@ -35,7 +35,7 @@ module.exports = require('express').Router()
   // establish new order
   .post('/', (req, res, next) => {
     Order.create(req.body)
-    .then(newOrder => res.send(newOrder))
+    .then(newOrder => res.status(201).send(newOrder))
     .catch(next);
   })
   // show one order
@@ -47,7 +47,7 @@ module.exports = require('express').Router()
   .put('/:id', (req, res, next) => {
     req.order.update(req.body)
     .then(updatedOrder => {
-      res.send(updatedOrder);
+      res.status(201).send(updatedOrder);
     })
     .catch(next);
   })
