@@ -9,6 +9,7 @@ export const SingleProduct = ({name, description, price, averageRating, photoURL
     <h2>{name}</h2>
       <img src={photoURL} />
     <h3>{price}</h3>
+      {/* OB/DY: dead code */}
       {/*<Link to=REVIEWSPAGEFORTHISPRODUCT>{averageRating}</Link>*/}
     <p>{description}</p>
       <form>

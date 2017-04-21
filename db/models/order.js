@@ -3,6 +3,7 @@
 const bcrypt = require('bcryptjs')
     , {STRING, ENUM, DECIMAL, DATE, INTEGER} = require('sequelize')
 
+// OB/DY: inconsistent code style...some spaces, some tabs
 module.exports = db => db.define('order', {
   sendDate: {
   	type: DATE,
@@ -13,9 +14,10 @@ module.exports = db => db.define('order', {
 		defaultValue: 'created',
 		allowNull: false
 	},
-  subtotal:{
+  // OB/DY: something of a standard to use integers (measured in cents) for price data, to avoid floating point math
+  subtotal:{ 
   	type: DECIMAL(10,2),
-    allowNull: false,
+    allowNull: false, // OB/DY: consider trailing commas
   },
   tax:{
   	type: DECIMAL(10,2),
@@ -27,18 +29,20 @@ module.exports = db => db.define('order', {
     allowNull: false
   },
   shippingPrice: {
-    type: DECIMAL(10,2),
+    type: DECIMAL(10,2), // OB/DY: could/should be a virtual type
     get: function() {
       return this.shippingOption === 'standard' ? 2.00 : 5.00;
     }
   },
+  // OB/DY: this user info is redundant with the user model
   firstName:{
   	type: STRING,
     allowNull: false
+    // OB/DY: also not allow empty string (and below, too)
   },
   lastName:{
   	type: STRING,
-    allowNull: false
+    allowNull: false // OB/DY: what about Madonna?
   },
   email: {
   	type: STRING,
@@ -67,6 +71,7 @@ module.exports = db => db.define('order', {
   	type: STRING,
     allowNull: false,
   },
+  // OB/DY: recommend not storing this, sensitive info that you don't want to be responsible for, maybe use a thirdy-party tool like Stripe
   creditCard: {
   	type: STRING,
   	validate: {
@@ -84,6 +89,7 @@ module.exports = db => db.define('order', {
   },
   hooks: {
     afterUpdate: function(order) {
+      // OB/DY: recommend a setter instead
       if (!order.sendDate && order.status === 'completed') {
         order.sendDate = Date.now();
       }

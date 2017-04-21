@@ -9,6 +9,7 @@ module.exports = db => db.define('product', {
     validate: {
       len: [5, 100],
     }
+    // OB/DY: consider unique validator
   },
   description: {
     type: TEXT,
@@ -17,6 +18,7 @@ module.exports = db => db.define('product', {
       len: [140, 1400],
     }
   },
+  // OB/DY: something of a standard to use integers (measured in cents) for price data, to avoid floating point math
   price: {
     type: DECIMAL(10,2),
     allowNull: false,
@@ -48,7 +50,7 @@ module.exports = db => db.define('product', {
 })
 
 
-
+// OB/DY: more dead code, kill it with fire
 // module.exports.associations = (Thing, {User, Favorite}) => {
 //
 //   Thing.belongsToMany(User, {as: 'lovers', through: Favorite})

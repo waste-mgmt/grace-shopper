@@ -7,7 +7,7 @@ const bcrypt = require('bcryptjs')
 module.exports = db => db.define('orderProduct', {
   quantity: {
     type: INTEGER
-    // can we set default from the front end?
+    // can we set default from the front end? // OB/DY: sure, but can also have a default value here
     // defaultValue: 1
   },
   unitPrice: {

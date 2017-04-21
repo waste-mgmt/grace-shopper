@@ -37,7 +37,7 @@ describe('/api/reviews', () => {
         r2 = secondR.id;
         r3 = thirdR.id;
   		})
-      .catch();
+      .catch(); // OB/DY: unnecessary catch
   });
 
   // GET ONE
