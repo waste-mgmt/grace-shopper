@@ -57,9 +57,10 @@ describe('/api/products', () => {
           p2 = secondP.id;
           p3 = thirdP.id;
         })
-        .catch();
+        .catch(); // OB/DY: unnecessary catch
     });
 
+    // OB/DY: can drop `done` in favor of promises
     it('returns all users in database', done => {
       request(app)
         .get(`/api/products`)

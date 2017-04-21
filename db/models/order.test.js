@@ -57,7 +57,9 @@ describe('Order', () => {
       expect(order.sendDate).to.equal(null);
     });
     it('is set to date when status changes to completed', () => {
-      order.update({
+      // OB/DY: this test will always pass
+      // OB/DY: remember the red/green cylce of testing
+      return order.update({
         status: 'completed'
       })
       .then(updatedOrder => {
@@ -68,9 +70,9 @@ describe('Order', () => {
   });
 
   describe('virtual method: shippingPrice', () => {
-    it('gets price of shipping based on shipping option', () => {
+    it.only('gets price of shipping based on shipping option', () => {
       expect(order.shippingPrice).to.equal(2.00);
-      order.update({shippingOption: 'express'})
+      order.update({shippingOption: 'express'}) // OB/DY: update is unnecessary here, you can just set the field
       expect(order.shippingPrice).to.equal(5.00);
     })
   });
