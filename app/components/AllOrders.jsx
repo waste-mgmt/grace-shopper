@@ -1,13 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
+
+// should we make this a dummy component instead of a container?
 export class AllOrders extends React.Component {
   render () {
     return (
       <div>
-        <ul className="list-unstyled">
           {
-            this.props.allOrders.map(order => {
+            this.props.allOrders && this.props.allOrders.map(order => {
               return (
                 <div key={order.id}>
                   <Link to={`/orders/${order.id}`}>
@@ -20,7 +21,6 @@ export class AllOrders extends React.Component {
               )
             })
           }
-        </ul>
       </div>
     )
   }
