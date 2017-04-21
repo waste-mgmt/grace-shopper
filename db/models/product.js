@@ -28,7 +28,7 @@ module.exports = db => db.define('product', {
     type: INTEGER,
     allowNull: false,
     validate: {
-    min: 0
+      min: 0
     }
   },
   photo: {
