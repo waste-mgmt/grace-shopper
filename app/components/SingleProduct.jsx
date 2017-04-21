@@ -1,7 +1,7 @@
 import React from 'react'
 
 // This is the component that renders the full product information
-// not for use where product arrays will be rendered
+// only for use on the standalone product page
 
 export const Product = ({name, description, price, averageRating, photoURL, category}) => {
 
@@ -18,4 +18,5 @@ return (<div>
   </div>
 )
 
+  //Need to handle functionality for Add to cart button, as well as Link and general styling
 }
