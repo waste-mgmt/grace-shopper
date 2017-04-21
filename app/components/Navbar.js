@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router';
 
-const Navbar = props => {
+export const Navbar = ({props}) => {
 	return (
 		<div>
 			<ul>
@@ -15,4 +15,19 @@ const Navbar = props => {
 		)
 }
 
-export default Navbar
+
+import {connect} from 'react-redux'
+
+const mapStateToProps = state => {
+	return {
+	}
+}
+
+const mapDispatchToProps = dispatch => {
+	return {
+	}
+}
+
+export default connect(mapStateToProps, 
+	mapDispatchToProps)
+(Navbar)
