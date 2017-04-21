@@ -1,13 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
+// can this be a dummy component instead?
 export class AllProducts extends React.Component {
   render () {
     return (
       <div>
-        <ul className="list-unstyled">
           {
-            this.props.allProducts
+            this.props.allProducts && this.props.allProducts
             .filter(product => product.inventory)
             .map(product => {
               return (
@@ -22,7 +22,6 @@ export class AllProducts extends React.Component {
               )
             })
           }
-        </ul>
       </div>
     )
   }
