@@ -1,13 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
+// should this be dummy or smart ?
 export class AllUsers extends React.Component {
   render () {
     return (
       <div>
-        <ul className="list-unstyled">
           {
-            this.props.AllUsers.map(user => {
+            this.props.AllUsers && this.props.AllUsers.map(user => {
               return (
                 <div key={user.id}>
                   <Link to={`/users/${user.id}`}>
@@ -19,7 +19,6 @@ export class AllUsers extends React.Component {
               )
             })
           }
-        </ul>
       </div>
     )
   }
