@@ -57,7 +57,6 @@ describe('/api/products', () => {
           p2 = secondP.id;
           p3 = thirdP.id;
         })
-        .catch();
     });
 
     it('returns all users in database', done => {

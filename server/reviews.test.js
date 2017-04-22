@@ -15,29 +15,28 @@ describe('/api/reviews', () => {
   let r3 = '';
 
   before('Dummy Data', () => {
-  	const first = Review.create({
-  		title: 'first',
-  		content: 'greatgreatgreatgreatgreatgreatgreatgreatgreatgreatgreatgreata',
-  		rating: 5
-  	});
-  	const second = Review.create({
-  		title: 'second', 
-  		content: 'okokokokokokokokokokokokokokokokokokokokokokokokokokokokokoka',
-  		rating: 3
-  	});
-  	const third = Review.create({
-  		title: 'third',
-  		content: 'badbadbadbadbadbadbadbadbadbadbadbadbadbadbadbadbadbadbadbads',
-  		rating: 1
-  	});
+    const first = Review.create({
+      title: 'first',
+      content: 'greatgreatgreatgreatgreatgreatgreatgreatgreatgreatgreatgreata',
+      rating: 5
+    });
+    const second = Review.create({
+      title: 'second',
+      content: 'okokokokokokokokokokokokokokokokokokokokokokokokokokokokokoka',
+      rating: 3
+    });
+    const third = Review.create({
+      title: 'third',
+      content: 'badbadbadbadbadbadbadbadbadbadbadbadbadbadbadbadbadbadbadbads',
+      rating: 1
+    });
 
-  	return Promise.all([first, second, third])
-  		.then(([firstR, secondR, thirdR]) => {
-  			r1 = firstR.id;
-        r2 = secondR.id;
-        r3 = thirdR.id;
-  		})
-      .catch();
+    return Promise.all([first, second, third])
+    .then(([firstR, secondR, thirdR]) => {
+      r1 = firstR.id;
+      r2 = secondR.id;
+      r3 = thirdR.id;
+    })
   });
 
   // GET ONE

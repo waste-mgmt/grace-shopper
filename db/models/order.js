@@ -1,100 +1,57 @@
 'use strict'
 
 const bcrypt = require('bcryptjs')
-    , {STRING, ENUM, DECIMAL, DATE, INTEGER} = require('sequelize')
+    , {ENUM, VIRTUAL, DATE} = require('sequelize')
 
 module.exports = db => db.define('order', {
   sendDate: {
-  	type: DATE,
+    type: DATE,
     allowNull: true
   },
-	status: {
-		type: ENUM('created', 'processing', 'cancelled', 'completed'),
-		defaultValue: 'created',
-		allowNull: false
-	},
-  subtotal:{
-  	type: DECIMAL(10,2),
+  status: {
+    type: ENUM('created', 'cancelled', 'completed'),
+    defaultValue: 'created',
     allowNull: false,
+    set: function (val) {
+      if (val === 'completed') {
+        this.setDataValue('sendDate', Date.now())
+      }
+    }
   },
-  tax:{
-  	type: DECIMAL(10,2),
-    allowNull: false,
+  subtotal: {
+    type: VIRTUAL,
+    get: function () {
+      return this.getProducts().reduce((acc, prod) => acc + (prod.price * prod.quantity), 0)
+    }
   },
-  shippingOption:{
-  	type: ENUM('standard', 'express'),
-  	defaultValue: 'standard',
+  tax: {
+    type: VIRTUAL,
+    get: function () {
+      return this.getUser.state === 'New York' ? this.subtotal * 8.875 : 0
+    }
+  },
+  shippingOption: {
+    type: ENUM('standard', 'express'),
+    defaultValue: 'standard',
     allowNull: false
   },
   shippingPrice: {
-    type: DECIMAL(10,2),
-    get: function() {
-      return this.shippingOption === 'standard' ? 2.00 : 5.00;
-    }
+    type: VIRTUAL,
+    get: function () {
+      return this.shippingOption === 'standard' ? 200 : 500
+    }
   },
-  firstName:{
-  	type: STRING,
-    allowNull: false
-  },
-  lastName:{
-  	type: STRING,
-    allowNull: false
-  },
-  email: {
-  	type: STRING,
-    allowNull: false,
-  	validate: {
-  		isEmail: true,
-  	}
-  },
-  houseNumber:{
-  	type: INTEGER,
-    allowNull: false,
-  },
-
-  addressLine1:{
-  	type: STRING,
-    allowNull: false,
-  },
-  addressLine2:{
-  	type: STRING
-  },
-  city:{
-  	type: STRING,
-    allowNull: false,
-  },
-  state:{
-  	type: STRING,
-    allowNull: false,
-  },
-  creditCard: {
-  	type: STRING,
-  	validate: {
-  		isCreditCard: true,
-  	},
-    allowNull: false,
-  }
-}, {
-  setterMethods: {
-  	//subtotal = Quantiny*Price of product
-  	//taxes = subtotal * state rate
-  },
-  getterMethods: {
-  	//totalPrice = Quantiny*Price of product + shipping + taxes
-  },
-  hooks: {
-    afterUpdate: function(order) {
-      if (!order.sendDate && order.status === 'completed') {
-        order.sendDate = Date.now();
-      }
+  total: {
+    type: VIRTUAL,
+    get: function () {
+      return this.subtotal + this.tax + this.shippingPrice
     }
   }
-
-
 })
 
-module.exports.associations = (Order, {User}) => {
+module.exports.associations = (Order, {User, OrderProduct}) => {
   Order.belongsTo(User)
+  Order.hasMany(OrderProduct, {as: 'product'})
 }
 
 
