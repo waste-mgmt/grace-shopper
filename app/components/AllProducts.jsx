@@ -1,16 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
-
+import {Link} from 'react-router'
 // can this be a dummy component instead?
 export class AllProducts extends React.Component {
   render () {
     return (
       <div>
           {
-            this.props.allProducts && this.props.allProducts
-            .filter(product => product.inventory)
-            .map(product => {
-              return (
+            this.props.allProducts
+            .map(product => (
                 <div key={product.id}>
                   <Link to={`/products/${product.id}`}>
                     <p>{product.name}</p>
@@ -19,8 +17,7 @@ export class AllProducts extends React.Component {
                     <p>{product.price}</p>
                   </Link>
                 </div>
-              )
-            })
+              ))
           }
       </div>
     )

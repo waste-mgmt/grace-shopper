@@ -14284,13 +14284,7 @@ var _Login = __webpack_require__(79);
 
 var _Login2 = _interopRequireDefault(_Login);
 
-var _AllProducts = __webpack_require__(161);
-
-var _AllProducts2 = _interopRequireDefault(_AllProducts);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-//Inserts homepage inbetween Nav and Login 
 
 function App(_ref) {
 	var children = _ref.children;
@@ -14300,7 +14294,7 @@ function App(_ref) {
 		null,
 		_react2.default.createElement(_Navbar2.default, null),
 		_react2.default.createElement(_Login2.default, null),
-		_react2.default.createElement(_AllProducts2.default, null)
+		children
 	);
 }
 
@@ -15327,6 +15321,8 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(32);
 
+var _reactRouter = __webpack_require__(50);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -15351,14 +15347,12 @@ var AllProducts = exports.AllProducts = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         null,
-        this.props.allProducts && this.props.allProducts.filter(function (product) {
-          return product.inventory;
-        }).map(function (product) {
+        this.props.allProducts.map(function (product) {
           return _react2.default.createElement(
             'div',
             { key: product.id },
             _react2.default.createElement(
-              Link,
+              _reactRouter.Link,
               { to: '/products/' + product.id },
               _react2.default.createElement(
                 'p',
@@ -15412,6 +15406,10 @@ var _reactDom = __webpack_require__(142);
 
 var _reactRedux = __webpack_require__(32);
 
+var _axios = __webpack_require__(143);
+
+var _axios2 = _interopRequireDefault(_axios);
+
 var _store = __webpack_require__(141);
 
 var _store2 = _interopRequireDefault(_store);
@@ -15436,25 +15434,31 @@ var _App = __webpack_require__(138);
 
 var _App2 = _interopRequireDefault(_App);
 
+var _AllProducts = __webpack_require__(161);
+
+var _AllProducts2 = _interopRequireDefault(_AllProducts);
+
+var _allProducts = __webpack_require__(323);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var ExampleApp = (0, _reactRedux.connect)(function (_ref) {
-  var auth = _ref.auth;
-  return { user: auth };
-})(function (_ref2) {
-  var user = _ref2.user,
-      children = _ref2.children;
-  return _react2.default.createElement(
-    'div',
-    null,
-    _react2.default.createElement(
-      'nav',
-      null,
-      user ? _react2.default.createElement(_WhoAmI2.default, null) : _react2.default.createElement(_Login2.default, null)
-    ),
-    children
-  );
-});
+// const ExampleApp = connect(
+//   ({ auth }) => ({ user: auth })
+// )(
+//   ({ user, children }) =>
+//     <div>
+//       <nav>
+//         {user ? <WhoAmI/> : <Login/>}
+//       </nav>
+//       {children}
+//     </div>
+// )
+var onAllProducts = function onAllProducts() {
+  _axios2.default.get('/api/products').then(function (response) {
+    var allProducts = response.data;
+    _store2.default.dispatch((0, _allProducts.gettingAllProducts)(allProducts));
+  });
+};
 
 (0, _reactDom.render)(_react2.default.createElement(
   _reactRedux.Provider,
@@ -15464,9 +15468,9 @@ var ExampleApp = (0, _reactRedux.connect)(function (_ref) {
     { history: _reactRouter.browserHistory },
     _react2.default.createElement(
       _reactRouter.Route,
-      { path: '/', component: _App2.default },
-      _react2.default.createElement(_reactRouter.IndexRedirect, { to: '/jokes' }),
-      _react2.default.createElement(_reactRouter.Route, { path: '/jokes', component: _Jokes2.default })
+      { path: '/', component: _App2.default, onEnter: onAllProducts },
+      _react2.default.createElement(_reactRouter.IndexRedirect, { to: '/home' }),
+      _react2.default.createElement(_reactRouter.Route, { path: '/home', component: _AllProducts2.default })
     ),
     _react2.default.createElement(_reactRouter.Route, { path: '*', component: _NotFound2.default })
   )
@@ -15486,7 +15490,8 @@ Object.defineProperty(exports, "__esModule", {
 var _redux = __webpack_require__(48);
 
 var rootReducer = (0, _redux.combineReducers)({
-  auth: __webpack_require__(38).default
+  auth: __webpack_require__(38).default,
+  allProducts: __webpack_require__(323).default
 });
 
 exports.default = rootReducer;
@@ -32741,6 +32746,53 @@ module.exports = function(module) {
 	return module;
 };
 
+
+/***/ }),
+/* 323 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.gettingAllProducts = undefined;
+
+exports.default = function () {
+	var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialAllProductState;
+	var action = arguments[1];
+
+
+	switch (action.type) {
+
+		case RECEIVE_PRODUCTS:
+			return action.receivedProducts;
+			break;
+
+		default:
+			return state;
+	}
+
+	return newState;
+};
+
+var _axios = __webpack_require__(143);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var RECEIVE_PRODUCTS = 'RECEIVE_PRODUCTS';
+
+var gettingAllProducts = exports.gettingAllProducts = function gettingAllProducts(receivedProducts) {
+	return {
+		type: RECEIVE_PRODUCTS,
+		receivedProducts: receivedProducts
+	};
+};
+
+var initialAllProductState = [];
 
 /***/ })
 /******/ ]);
