@@ -4,19 +4,18 @@ import React from 'react'
 // only for use on the standalone product page
 
 export const SingleProduct = ({name, description, price, averageRating, photoURL, category}) => {
-
-  return (<div>
-    <h2>{name}</h2>
-      <img src={photoURL} />
-    <h3>{price}</h3>
-      {/*<Link to=REVIEWSPAGEFORTHISPRODUCT>{averageRating}</Link>*/}
-    <p>{description}</p>
-      <form>
-        <input type="number" value="1"/>
-      <button>Add to Cart</button>
-      </form>
+  return (
+    <div>
+      <h2>{name}</h2>
+        <img src={photoURL} />
+      <h3>{price}</h3>
+      {/* <Link to={`/reviews/${props.selectedProduct.id}`}>{averageRating}</Link> */}
+      <p>{description}</p>
+        <form>
+          <input type="number" value="1"/>
+          <button>Add to Cart</button>
+        </form>
     </div>
   )
-
-  //Need to handle functionality for Add to cart button, as well as Link and general styling
 }
+  // Need to handle functionality for Add to cart button, as well as Link and general styling

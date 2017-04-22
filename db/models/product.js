@@ -1,24 +1,25 @@
 'use strict'
 
-const {STRING, TEXT, DECIMAL, INTEGER, ENUM} = require('sequelize')
+const {STRING, TEXT, INTEGER, ENUM} = require('sequelize')
 
 module.exports = db => db.define('product', {
   name: {
     type: STRING,
+    unique: true,
     allowNull: false,
     validate: {
-      len: [5, 100],
+      len: [5, 100]
     }
   },
   description: {
     type: TEXT,
     allowNull: false,
     validate: {
-      len: [140, 1400],
+      len: [140, 1400]
     }
   },
   price: {
-    type: DECIMAL(10,2),
+    type: INTEGER,
     allowNull: false,
     validate: {
       min: 0
@@ -35,21 +36,11 @@ module.exports = db => db.define('product', {
     type: STRING,
     defaultValue: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Hestem%C3%B8j.jpg/296px-Hestem%C3%B8j.jpg',
     validate: {
-      isUrl: true, // watch out for problems !!
+      isUrl: true
     }
   },
   category: {
     type: ENUM('animal', 'plant'),
     allowNull: false
-  },
-
-},{
-//this is the options object
+  }
 })
-
-
-
-// module.exports.associations = (Thing, {User, Favorite}) => {
-//
-//   Thing.belongsToMany(User, {as: 'lovers', through: Favorite})
-// }

@@ -5,14 +5,26 @@ const bcrypt = require('bcryptjs')
     , {STRING, VIRTUAL, BOOLEAN, INTEGER} = require('sequelize')
 
 module.exports = db => db.define('users', {
-  firstName: STRING,
-  lastName: STRING,
+  firstName: {
+    type: STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
+  },
+  lastName: {
+    type: STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
+  },
   email: {
     type: STRING,
     unique: true,
     validate: {
       isEmail: true,
-      notEmpty: true,
+      notEmpty: true
     }
   },
   photo: {
@@ -20,8 +32,7 @@ module.exports = db => db.define('users', {
     defaultValue: `http://wpshowdown.com/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png`,
     allowNull: false,
     validate: {
-      // look out for problems with the isUrl
-      isUrl: true,
+      isUrl: true
     }
   },
   admin: {
@@ -29,20 +40,21 @@ module.exports = db => db.define('users', {
     allowNull: false,
     defaultValue: false
   },
-  creditCard: {
-    type: STRING,
-    validate: {
-      isCreditCard: true
-    }
-  },
-  creditCardExpirationDate: STRING,
-  creditCardCVV: INTEGER,
   houseNumber: INTEGER,
   addressLine1: STRING,
   addressLine2: STRING,
   city: STRING,
-  // should state be forced as two letters, or left open to the user?
-  state: STRING,
+  state: {
+    type: STRING,
+    set: function (val) {
+      for (let i = 0; i < val.length; i++) {
+        if (i === 0 || val[i - 1] === ' ') {
+          val[i] = val[i].toUpperCase()
+        }
+      }
+      return val
+    }
+  },
   // We support oauth, so users may or may not have passwords.
   password_digest: STRING, // This column stores the hashed password in the DB, via the beforeCreate/beforeUpdate hooks
   password: VIRTUAL // Note that this is a virtual, and not actually stored in DB
@@ -50,11 +62,11 @@ module.exports = db => db.define('users', {
   indexes: [{fields: ['email'], unique: true}],
   hooks: {
     beforeCreate: setEmailAndPassword,
-    beforeUpdate: setEmailAndPassword,
+    beforeUpdate: setEmailAndPassword
   },
   instanceMethods: {
     // This method is a Promisified bcrypt.compare
-    authenticate(plaintext) {
+    authenticate (plaintext) {
       return bcrypt.compare(plaintext, this.password_digest)
     }
   }
@@ -62,7 +74,6 @@ module.exports = db => db.define('users', {
 
 module.exports.associations = (User, {OAuth, Order, Review}) => {
   User.hasOne(OAuth)
-  // User.belongsToMany(Thing, {as: 'favorites', through: Favorite})
   User.hasMany(Order)
   User.hasMany(Review)
 }
