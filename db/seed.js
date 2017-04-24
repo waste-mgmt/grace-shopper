@@ -19,12 +19,12 @@ function seedEverything() {
   }
 
   seeded.reviews = reviews(seeded)
-  seeded.orders= orders(seeded)
+  seeded.orders = orders(seeded)
   seeded.orderProducts = orderProducts(seeded)
   return Promise.props(seeded)
 }
 
-// no join tables? 
+// no join tables?
 // seeded.favorites is for join tables...
 
 
@@ -42,7 +42,7 @@ const users = seed(User, {
     addressLine1: 'Inner Join rd',
     // addressLine2:
     city: 'You Should Double',
-    state: 'NY'
+    state: 'New York'
   },
   barack: {
     firstName: 'This',
@@ -57,7 +57,7 @@ const users = seed(User, {
     addressLine1: 'DepthFirst',
     // addressLine2:
     city: 'Solutions',
-    state: 'NY'
+    state: 'New York'
   },
 })
 
@@ -95,7 +95,7 @@ const orders = seed(Order,
       addressLine1: 'Inner Join rd',
       // addressLine2:
       city: 'You Should Double',
-      state: 'NY',
+      state: 'New York',
       creditCard: '375556917985515',
       users_id: users.god.id
     },

@@ -7,7 +7,7 @@ module.exports = db => db.define('review', {
     type: STRING,
     allowNull: false,
     validate: {
-      isEmpty: false
+      notEmpty: true
     }
   },
   content: {

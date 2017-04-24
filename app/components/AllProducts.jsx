@@ -7,17 +7,16 @@ export class AllProducts extends React.Component {
     return (
       <div>
           {
-            this.props.allProducts
-            .map(product => (
-                <div key={product.id}>
-                  <Link to={`/products/${product.id}`}>
-                    <p>{product.name}</p>
-                    <img src={product.photo} />
-                    <p>{product.description}</p>
-                    <p>{product.price}</p>
-                  </Link>
-                </div>
-              ))
+            this.props.allProducts && this.props.allProducts.map(product => (
+              <div key={product.id}>
+                <Link to={`/products/${product.id}`}>
+                  <p>{product.name}</p>
+                  <img src={product.photo} />
+                  <p>{product.description}</p>
+                  <p>{product.price}</p>
+                </Link>
+              </div>
+            ))
           }
       </div>
     )
