@@ -44,17 +44,7 @@ module.exports = db => db.define('users', {
   addressLine1: STRING,
   addressLine2: STRING,
   city: STRING,
-  state: {
-    type: STRING,
-    set: function (val) {
-      for (let i = 0; i < val.length; i++) {
-        if (i === 0 || val[i - 1] === ' ') {
-          val[i] = val[i].toUpperCase()
-        }
-      }
-      return val
-    }
-  },
+  state: STRING,
   // We support oauth, so users may or may not have passwords.
   password_digest: STRING, // This column stores the hashed password in the DB, via the beforeCreate/beforeUpdate hooks
   password: VIRTUAL // Note that this is a virtual, and not actually stored in DB

@@ -21,7 +21,7 @@ module.exports = db => db.define('order', {
   subtotal: {
     type: VIRTUAL,
     get: function () {
-      return this.getProducts().reduce((acc, prod) => acc + (prod.price * prod.quantity), 0)
+      return this.getProduct().reduce((acc, prod) => acc + (prod.price * prod.quantity), 0)
     }
   },
   tax: {

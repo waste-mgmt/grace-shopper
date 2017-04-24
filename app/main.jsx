@@ -12,25 +12,9 @@ import WhoAmI from './components/WhoAmI'
 import NotFound from './components/NotFound'
 import App from './components/App'
 import AllProducts from './components/AllProducts'
-import {gettingAllProducts} from './reducers/all-products'
-// const ExampleApp = connect(
-//   ({ auth }) => ({ user: auth })
-// )(
-//   ({ user, children }) =>
-//     <div>
-//       <nav>
-//         {user ? <WhoAmI/> : <Login/>}
-//       </nav>
-//       {children}
-//     </div>
-// )
-const onAllProducts = () => {
-  axios.get('/api/products')
-  .then(response => {
-    const allProducts = response.data
-    store.dispatch(gettingAllProducts(allProducts))    
-  })
-}
+import {onAllProducts} from './reducers/all-products'
+
+
 
 render(
   <Provider store={store}>
