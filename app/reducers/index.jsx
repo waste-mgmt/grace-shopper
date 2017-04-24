@@ -6,7 +6,6 @@ const rootReducer = combineReducers({
   allOrders: require('./all-orders-admin').default,
   allUserOrders: require('./all-orders-user').default,
   selectedOrder: require('./single-order').default,
-  currentUser: require('./single-order').default
 })
 
 export default rootReducer
