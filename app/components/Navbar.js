@@ -3,7 +3,7 @@ import {Link} from 'react-router';
 
 import Login from './Login';
 
-
+// uses one conditional and another within that to display diffferently for those not logged in, and users vs. admins
 export const Navbar = (props) => {
 	return (
 		<nav className="navbar navbar-default">
