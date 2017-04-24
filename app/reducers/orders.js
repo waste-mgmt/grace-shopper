@@ -24,12 +24,12 @@ const reducer = (state=initialOrderState, action) => {
       newState.allOrders = action.allOrders;
       break;
 
-    case SELECT_ORDER: 
-      newState.selectedOrder = action.selectedOrder;
-      break;
-
     case RECEIVE_USER_ORDERS:
       newState.allUserOrders = action.allUserOrders;
+      break;
+
+    case SELECT_ORDER: 
+      newState.selectedOrder = action.selectedOrder;
       break;
 
     case CREATE_ORDER: 
@@ -131,10 +131,10 @@ export const postOrder = orderDetails => {
 
 // Admin, auth'd user, and gues action: modify new order
 // this dispatch needs to do several things: 
-  // (1) locate in the state the order that needs to be updated; this is done with the for-loop; hence the third argument
-  // (2) make an axios request to update the specified order
+  // (1) locate in the state the order that needs to be updated; this is done with the for-loop (hence the third argument)
+  // (2) make an axios request to update the specified order (identified with the first argument)
   // (3) replace the order-to-be-updated (from (1) above) with the updated order (returned from (2) above)
-// NOTE: this is front-end updating that admins, auth'd users, and guests can make; this is not the back-end updated that occurs when Waste-MGMT™ changes an order's status from *created* to *completed*;
+// NOTE: this is front-end updating that admins, auth'd users, and guests can make; this IS NOT the back-end updating that occurs when Waste-MGMT™ changes an order's status from *created* to *completed*;
 export const putOrder = (orderId, orderDetails, allUserOrders) => {
   return dispatch => {
     let orderIndex;
