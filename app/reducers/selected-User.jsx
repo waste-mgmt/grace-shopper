@@ -12,7 +12,6 @@ export default function (state = initialSelectedUserState, action) => {
 }
 
 const SELECT_USER = 'SELECT_USER'
-const DESTROY_USER = 'DESTROY_USER'
 
 const selectOneUser = oneUser => ({
   type: SELECT_USER, oneUser
