@@ -13,6 +13,7 @@ import NotFound from './components/NotFound'
 import App from './components/App'
 import AllProducts from './components/AllProducts'
 import {onAllProducts} from './reducers/all-products'
+import UserSetting from './components/UserSetting'
 
 
 
@@ -22,6 +23,7 @@ render(
       <Route path="/" component={App} onEnter={onAllProducts}>
         <IndexRedirect to="/home" />
         <Route path="/home" component={AllProducts} />
+        <Route path="/user/:userId/setting" component={UserSetting}/>
       </Route>
       <Route path='*' component={NotFound} />
     </Router>
