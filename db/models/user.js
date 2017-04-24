@@ -58,6 +58,9 @@ module.exports = db => db.define('users', {
     // This method is a Promisified bcrypt.compare
     authenticate (plaintext) {
       return bcrypt.compare(plaintext, this.password_digest)
+    },
+    fullName () {
+      return `${this.firstName} ${this.lastName}`;
     }
   }
 })

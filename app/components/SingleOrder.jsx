@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 export const SingleOrder = props => {
   const order = props.selectedOrder
-  const orderArr = Object.entries(order)
+  const orderArr = Object.entries(order) // IE and Opera do not support Object.entries (see waffle for issue; delete this comment when issue is resolved);
   return (
     <div key={order.id}>
       {
