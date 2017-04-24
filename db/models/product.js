@@ -44,3 +44,7 @@ module.exports = db => db.define('product', {
     allowNull: false
   }
 })
+
+module.exports.associations = (Product, {Review}) => {
+  Product.hasMany(Review)
+}
