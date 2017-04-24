@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const initialSelectedUserState = {}
 
-export default function (state = initialSelectedUserState, action) => {
+export default function (state = initialSelectedUserState, action) {
   switch (action.type) {
     case SELECT_USER:
       return action.selectedUser
