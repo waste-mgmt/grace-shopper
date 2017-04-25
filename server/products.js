@@ -1,11 +1,21 @@
 const db = require('APP/db')
 const Product = db.model('product')
+const User = db.model('user')
+const Review = db.model('review')
 
 module.exports = require('express').Router()
 
   .param('id', (req, res, next, id) => {
-    Product.findById(id)
-      .then(foundProduct => {
+    Product.findOne({
+      where: {
+        id: id
+      },
+      include: [
+        model: User,
+        model: Review
+      ]
+    })
+      .then(foundProduct => {}
         if (!foundProduct) {
           const err = new Error ('No products found');
           err.status = 404;
