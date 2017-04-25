@@ -14,6 +14,7 @@ module.exports = require('express').Router()
         req.product = foundProduct;
         req.product.averageRating = foundProduct.averageRating();
         req.product.reviews = foundProduct.getReviews();
+        req.product.reviews.user = req.product.reviews.forEach(review.getUser());
         next();
       })
       .catch(next);
