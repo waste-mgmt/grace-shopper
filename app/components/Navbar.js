@@ -39,7 +39,6 @@ export const Navbar = (props) => {
 													<li role="separator" className="divider"></li>
 													<li><Link to='/users'>All Users</Link></li>
 													<li><Link to='/orders'>All Orders</Link></li>
-													<li><Link to='/products'>All Products</Link></li>
 												</div>
 											) : (
 												<div></div>

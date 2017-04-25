@@ -14,6 +14,9 @@ import App from './components/App'
 import AllProducts from './components/AllProducts'
 import {onAllProducts} from './reducers/all-products'
 import UserSetting from './components/UserSetting'
+import AllOrders from './components/AllOrders'
+import AllReviews from './components/AllReviews'
+import AllUsers from './components/AllUsers'
 
 
 
@@ -23,7 +26,10 @@ render(
       <Route path="/" component={App} onEnter={onAllProducts}>
         <IndexRedirect to="/home" />
         <Route path="/home" component={AllProducts} />
+        <Route path="/orders" component={AllOrders} />
+        <Route path="/reviews" component={AllReviews} />
         <Route path="/user/:userId/setting" component={UserSetting}/>
+        <Route path="/users" component={AllUsers} />
       </Route>
       <Route path='*' component={NotFound} />
     </Router>
