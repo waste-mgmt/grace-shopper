@@ -1,6 +1,6 @@
 const db = require('APP/db')
 const Product = db.model('product')
-const User = db.model('user')
+const User = db.model('users')
 const Review = db.model('review')
 
 module.exports = require('express').Router()
@@ -11,11 +11,10 @@ module.exports = require('express').Router()
         id: id
       },
       include: [
-        model: User,
-        model: Review
+        {model: Review}
       ]
     })
-      .then(foundProduct => {}
+      .then(foundProduct => {
         if (!foundProduct) {
           const err = new Error ('No products found');
           err.status = 404;

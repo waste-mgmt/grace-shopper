@@ -3,17 +3,20 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import { Link } from 'react-router';
 
+import {addToCart} from '../reducers/cart'
+
 export class SingleProduct extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = { // for placing an order
       name: props.name, // product's model: productName
-      totalPrice: '', // 
+      totalPrice: '', //
       quantity: ''  // orderProduct model
     }
+    this.handleQuantityChange = this.handleQuantityChange.bind(this)
 
-    this.rating = this.props.averageRating();
+    // this.rating = this.props.averageRating();
   }
 
   handleQuantityChange(event) {
@@ -34,17 +37,17 @@ export class SingleProduct extends React.Component {
 
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
+        <form >
           <label>{product.name}</label>
           <br />
           <label>Rating: {product.averageRating}</label>
           <img src={product.photo} />
 
-          <button type='submit' value='ORDER xD' />
-          <select onChange={handleQuantityChange} required>
+          <input type='submit' value='ORDER xD' onClick={this.handleSubmit} />
+          <select onChange={this.handleQuantityChange} required>
             <option>Choose a Quantity XDDD</option>
             {
-              nums.map(n => (<option key={n} value={n}>n</option>))
+              nums.map(n => (<option key={n} value={n}>{n}</option>))
             }
           </select>
         </form>
@@ -66,7 +69,7 @@ export class SingleProduct extends React.Component {
 }
 
 // pass down state relating to product
-// pass down thunks that will 
+// pass down thunks that will
 const mapStateToProps = state => ({product: state.singleProduct});
 const mapDispatchToProps = dispatch => ({addToCart});
 
