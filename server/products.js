@@ -1,6 +1,6 @@
 const db = require('APP/db')
 const Product = db.model('product')
-const User = db.model('user')
+const User = db.model('users')
 const Review = db.model('review')
 
 module.exports = require('express').Router()
