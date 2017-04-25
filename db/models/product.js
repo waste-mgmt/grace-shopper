@@ -45,13 +45,13 @@ module.exports = db => db.define('product', {
   }
 }, {
   instanceMethods: {
-    averageRating() {
-      const ratings = this.getReviews().map(review => (review.rating));
-      return ratings.reduce((a,b) => (a + b)) / ratings.length;
-    }
-    getAllReviews() {
-      return this.getReviews();
-    }
+    // averageRating() {
+    //   const ratings = this.getReviews().map(review => (review.rating));
+    //   return ratings.reduce((a,b) => (a + b)) / ratings.length;
+    // }
+    // getAllReviews() {
+    //   return this.getReviews();
+    // }
   }
 })
 
