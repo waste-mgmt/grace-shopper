@@ -15,7 +15,7 @@ export class SingleProduct extends React.Component {
       quantity: ''  // orderProduct model
     }
 
-    // this.rating = this.props.averageRating();
+    this.rating = this.props.averageRating();
   }
 
   handleQuantityChange(event) {
