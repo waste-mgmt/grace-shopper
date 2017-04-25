@@ -11,6 +11,7 @@ export const Footer = () => {
 					<i className="fa fa-2x fa-facebook-square" style={{cursor: "pointer"}}></i>
 	        <i className="fa fa-2x fa-twitter-square" style={{cursor: "pointer"}}></i>
 	        <i className="fa fa-2x fa-google-plus-square" style={{cursor: "pointer"}}></i>
+	        <a href='https://github.com/waste-mgmt/grace-shopper'><i className="fa fa-2x  fa-github" style={{cursor: "pointer"}}></i></a>
 				</ul>
 			</div>
 		</div>
