@@ -11,7 +11,7 @@ module.exports = require('express').Router()
         id: id
       }
     })
-      .then(foundProduct => {}
+      .then(foundProduct => {
         if (!foundProduct) {
           const err = new Error ('No products found');
           err.status = 404;
