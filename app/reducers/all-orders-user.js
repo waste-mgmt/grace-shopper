@@ -41,7 +41,7 @@ const receiveUserOrders = allUserOrders => ({
 // gets all orders _for one logged-in user_ (admin or auth'd user)
 const getUserOrders = userId => {
   return dispatch => {
-    return axios.get(`/api/users/${userId}/orders`)
+    return axios.get(`/api/users/${userId}/orders`) // OB/DY: consider different more generic URI
       .then(res => {
         dispatch(receiveUserOrders(res.data));
       });

@@ -5,11 +5,11 @@ export const SingleReview = props => {
   const review = props.selectedReview;
 
   return (
-    <div key={review.id}>
+    <div key={review.id}> {/* OB/DY: unnecessary key */}
       {
-        review && review.map(col => {
+        review && review.map(col => { // OB/DY: review is just one object?
           return (
-            <div>
+            <div> {/* OB/DY: missing key */}
               <h3>col.title</h3>
               <p>col.rating</p>
               <p>col.content</p>

@@ -42,9 +42,9 @@ export const receiveReviews = productReviews => ({
 // gets all reviews associated with _one product_ from the database
 export const getReviews = productId => {
   return dispatch => {
-    return axios.get(`/api/products/${productId}`)
+    return axios.get(`/api/products/${productId}`) // OB/DY: better URL /api/reviews?productId=theProductIdHere
       .then(res => {
-        let reviews = res.data.getReviews()
+        let reviews = res.data.getReviews() // OB/DY: error `getReviews` is not a function
         dispatch(receiveReviews(reviews));
       });
   }

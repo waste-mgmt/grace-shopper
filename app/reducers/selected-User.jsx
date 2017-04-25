@@ -1,3 +1,4 @@
+// OB/DY: different naming convention for this file?
 import axios from 'axios'
 
 const initialSelectedUserState = {}
@@ -13,6 +14,7 @@ export default function (state = initialSelectedUserState, action) {
 
 const SELECT_USER = 'SELECT_USER'
 
+// OB/DY: https://github.com/erikras/ducks-modular-redux
 const selectOneUser = oneUser => ({
   type: SELECT_USER, oneUser
 })
@@ -30,7 +32,7 @@ export const updatingOneUser = (updatedUser) => {
   return dispatch => {
     return axios.put(`/api/users/${updatedUser.id}`, updatedUser)
       .then((res) => {
-        dispatch(selectingOneUser(res.data.id))
+        dispatch(selectingOneUser(res.data.id)) // OB/DY: carry all the groceries in one trip
       });
   };
 };
@@ -40,7 +42,7 @@ export const destroyingOneUser = userId => {
   return dispatch => {
     return axios.delete(`/api/users/${userId}`)
       .then(()=> {
-        dispatch(selectingOneUser({}));
+        dispatch(selectingOneUser({})); // OB/DY: should probably be `selectOneUser`
       });
   };
 };

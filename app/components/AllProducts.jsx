@@ -12,7 +12,7 @@ export class AllProducts extends React.Component {
               <div key={product.id} className="col-md-4">
                 <Link to={`/products/${product.id}`}>
                   <p>{product.name}</p>
-                  <img src={product.photo} style={{cursor: "pointer"}} />
+                  <img src={product.photo} style={{cursor: "pointer"}} /> {/* OB/DY: best to define this object above */}
                   <p>{product.description}</p>
                   <p>{product.price}</p>
                 </Link>

@@ -18,7 +18,7 @@ const receivingCurrentUser = currentUser => ({
   currentUser
 })
 
-export const setCurrentUser = userId => {
+export const setCurrentUser = userId => { // OB/DY: might be redundant with whoami action creator
   return dispatch => {
     return axios.get(`/api/users/${userId}`)
       .then(res => {

@@ -15,6 +15,7 @@ export const onAllProducts = () => {
   .then(response => {
     const allProducts = response.data
     store.dispatch(gettingAllProducts(allProducts))
+    // OB/DY: using `store.dispatch` directly instead of doing something like a thunk
   })
 }
 

@@ -12,7 +12,7 @@ export class AllOrders extends React.Component {
               return (
                 <div key={order.id}>
                   <Link to={`/orders/${order.id}`}>
-                    <p>{order.firstName + ` ` + order.lastName}</p>
+                    <p>{order.firstName + ` ` + order.lastName}</p> {/* OB/DY: orders do not have a first last name? */}
                     <p>{order.status}</p>
                     <p>{order.subtotal + order.tax + order.shippingPrice}</p>
                     {order.sendDate && <p>{order.sendDate}</p>}
