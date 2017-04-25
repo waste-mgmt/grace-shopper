@@ -43,6 +43,16 @@ module.exports = db => db.define('product', {
     type: ENUM('animal', 'plant'),
     allowNull: false
   }
+}, {
+  instanceMethods: {
+    averageRating() {
+      const ratings = this.getReviews().map(review => (review.rating));
+      return ratings.reduce((a,b) => (a + b)) / ratings.length;
+    }
+    getAllReviews() {
+      return this.getReviews();
+    }
+  }
 })
 
 module.exports.associations = (Product, {Review}) => {
