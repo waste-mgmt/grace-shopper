@@ -9,6 +9,7 @@ export const SingleProduct = ({name, description, price, averageRating, photoURL
       <h2>{name}</h2>
         <img src={photoURL} />
       <h3>{price}</h3>
+      {/* OB/DY: still dead */}
       {/* <Link to={`/reviews/${props.selectedProduct.id}`}>{averageRating}</Link> */}
       <p>{description}</p>
         <form>

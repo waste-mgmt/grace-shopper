@@ -14,7 +14,7 @@ export default function (state = initialReviewsUsersState, action) {
 
     case RECEIVE_USER_REVIEWS:
       return action.userReviews;
-      break;
+      break; // OB/DY: can drop break if you `return`
 
     default:
       return state;
@@ -44,7 +44,7 @@ export const getReviews = userId => {
   return dispatch => {
     return axios.get(`/api/users/${userId}`)
       .then(res => {
-        let reviews = res.data.getReviews()
+        let reviews = res.data.getReviews() // OB/DY: this should error
         dispatch(receiveReviews(reviews));
       });
   }

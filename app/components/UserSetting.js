@@ -14,6 +14,7 @@ export class UserSetting extends React.Component {
 		}
 	}
 
+	// OB/DY: crazy es6 destructuring here ({target: {name, value}}) would give you variables for `name` and `value` directly
 	handleInputChange(event) {
     const target = event.target;
     const name = target.name;
@@ -24,12 +25,14 @@ export class UserSetting extends React.Component {
   }
 
   handleSubmit(event) {
-  	axios.put(`/users/:${currentUser.id}`, this.state)
+  	// OB/DY: don't forget to preventDefault for submit events
+  	// OB/DY          v BUG
+  	axios.put(`/users/:${currentUser.id}`, this.state) // OB/DY: not talking to redux?
   	.then(updatedUser => {res.send(updatedUser)})
   }
 
 	render () {
-		return (
+		return ( // OB/DY: inconsistent indentation
 				<form onSubmit={this.handleSubmit}>
 						<label>
 							First Name:

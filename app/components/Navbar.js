@@ -23,7 +23,7 @@ export const Navbar = (props) => {
 					</ul>
 				</div>
 				{
-					props.currentUser.id ? (
+					props.currentUser.id ? ( // OB/DY: recommend refactoring into its own component or something (large ternaries are hard to read)
 						<div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 							<ul className="nav navbar-nav">
 								<li><a href="#">Link</a></li>
@@ -34,7 +34,7 @@ export const Navbar = (props) => {
 										<li><Link to='/reviews'>My Reviews</Link></li>
 										<li><Link to='/setting'>Setting</Link></li>
 										{
-											props.currentUser.admin ? (
+											props.currentUser.admin ? ( // OB/DY could use `&&` instead
 												<div>
 													<li role="separator" className="divider"></li>
 													<li><Link to='/users'>All Users</Link></li>

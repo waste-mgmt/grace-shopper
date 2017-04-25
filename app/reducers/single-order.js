@@ -53,6 +53,8 @@ export const putOrder = (orderId, orderDetails) => {
   return dispatch => {
     return axios.put(`/api/orders/${orderId}`, orderDetails) // updates the order in the database
       .then(res => {
+        // OB/DY: res could have the updated data instead of you needing to make another get request
+        // OB/DY: also yucky nested promises
         return axios.get(`/api/orders/${res.data.id}`) // queries the database, returning updated order
           .then(res => {
             dispatch(retrieveOrder(res.data)); // dispatches to update the state with updated order
@@ -66,6 +68,7 @@ export const postOrder = orderDetails => {
   return dispatch => {
     return axios.post(`/api/orders`, orderDetails) // creates new row in database
       .then(res => {
+        // OB/DY: res could have the updated data instead of you needing to make another get request
         return axios.get(`/api/orders/${res.data.id}`) // queries the database, returning created order
           .then(res => {
             dispatch(retrieveOrder(res.data)); // dispatches to update the state with created order
