@@ -1,8 +1,12 @@
 import React from 'react'
 import Navbar from './Navbar'
 
+const divStyle = {
+  float: "right"
+}
+
 export const Login = ({ login }) => (
-  <div>
+  <div style={divStyle}>
     <form onSubmit={evt => {
       evt.preventDefault()
       login(evt.target.username.value, evt.target.password.value)
