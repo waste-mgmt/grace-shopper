@@ -17,7 +17,15 @@ import UserSetting from './components/UserSetting'
 import AllOrders from './components/AllOrders'
 import AllReviews from './components/AllReviews'
 import AllUsers from './components/AllUsers'
+import Cart from './components/Cart'
+import SingleProduct from './components/SingleProduct'
+import {getProduct} from './reducers/single-product'
 
+
+const onProductEnter = (nextRouterState) => {
+  const productId = nextRouterState.params.productId;
+  store.dispatch(getProduct(productId))
+}
 
 
 render(
@@ -30,6 +38,8 @@ render(
         <Route path="/reviews" component={AllReviews} />
         <Route path="/user/:userId/setting" component={UserSetting}/>
         <Route path="/users" component={AllUsers} />
+        <Route path="/cart" component={Cart} />
+        <Route path="/products/:productId" component={SingleProduct} onEnter={onProductEnter} />
       </Route>
       <Route path='*' component={NotFound} />
     </Router>

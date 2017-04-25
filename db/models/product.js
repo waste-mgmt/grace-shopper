@@ -48,7 +48,7 @@ module.exports = db => db.define('product', {
     averageRating() {
       const ratings = this.getReviews().map(review => (review.rating));
       return ratings.reduce((a,b) => (a + b)) / ratings.length;
-    }
+    },
     getAllReviews() {
       return this.getReviews();
     }
