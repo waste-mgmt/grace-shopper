@@ -11,6 +11,12 @@ module.exports = require('express').Router()
           err.status = 404;
           throw err;
         }
+        return foundProduct.getReviews();
+      })
+      .then(foundProduct => {
+        return foundProduct.reviews.getUsers();
+      })
+      .then(foundProduct => {
         req.product = foundProduct;
         next();
       })
