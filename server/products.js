@@ -11,9 +11,13 @@ module.exports = require('express').Router()
           err.status = 404;
           throw err;
         }
+        return foundProduct.getReviews();
+      })
+      .then(foundProduct => {
+        return foundProduct.reviews.getUsers();
+      })
+      .then(foundProduct => {
         req.product = foundProduct;
-        req.product.reviews = foundProduct.getReviews();
-        req.product.reviews.users = req.product.reviews.getUsers();
         next();
       })
       .catch(next);
