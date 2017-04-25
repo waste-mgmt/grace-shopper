@@ -14,8 +14,9 @@ export class SingleProduct extends React.Component {
       totalPrice: '', //
       quantity: ''  // orderProduct model
     }
+    this.handleQuantityChange = this.handleQuantityChange.bind(this)
 
-    this.rating = this.props.averageRating();
+    // this.rating = this.props.averageRating();
   }
 
   handleQuantityChange(event) {
@@ -36,17 +37,17 @@ export class SingleProduct extends React.Component {
 
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
+        <form >
           <label>{product.name}</label>
           <br />
           <label>Rating: {product.averageRating}</label>
           <img src={product.photo} />
 
-          <button type='submit' value='ORDER xD' />
+          <input type='submit' value='ORDER xD' onClick={this.handleSubmit} />
           <select onChange={this.handleQuantityChange} required>
             <option>Choose a Quantity XDDD</option>
             {
-              nums.map(n => (<option key={n} value={n}>n</option>))
+              nums.map(n => (<option key={n} value={n}>{n}</option>))
             }
           </select>
         </form>
