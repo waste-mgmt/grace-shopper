@@ -1,15 +1,18 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import {Link} from 'react-router';
 
-// should this be dummy or smart ?
+
 export class AllUsers extends React.Component {
+
   render () {
     return (
-      <div>
+      <div className="container">
+         <div className="row">
           {
-            this.props.AllUsers && this.props.AllUsers.map(user => {
+            this.props.allUsers && this.props.allUsers.map(user => {
               return (
-                <div key={user.id}>
+                <div key={user.id} className="col-md-4">
                   <Link to={`/users/${user.id}`}>
                     <p>{user.firstName + ' ' + user.lastName}</p>
                     <p>{user.email}</p>
@@ -19,6 +22,7 @@ export class AllUsers extends React.Component {
               )
             })
           }
+        </div>
       </div>
     )
   }

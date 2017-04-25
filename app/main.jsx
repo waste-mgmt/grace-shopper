@@ -17,19 +17,18 @@ import UserSetting from './components/UserSetting'
 import AllOrders from './components/AllOrders'
 import AllReviews from './components/AllReviews'
 import AllUsers from './components/AllUsers'
-
-
+import {getUsers} from './reducers/all-users'
 
 render(
   <Provider store={store}>
     <Router history={browserHistory}>
-      <Route path="/" component={App} onEnter={onAllProducts}>
+      <Route path="/" component={App} >
         <IndexRedirect to="/home" />
-        <Route path="/home" component={AllProducts} />
+        <Route path="/home" component={AllProducts} onEnter={() => store.dispatch(onAllProducts)} />
         <Route path="/orders" component={AllOrders} />
         <Route path="/reviews" component={AllReviews} />
         <Route path="/user/:userId/setting" component={UserSetting}/>
-        <Route path="/users" component={AllUsers} />
+        <Route path="/users" component={AllUsers} onEnter={() => store.dispatch(getUsers())} />
       </Route>
       <Route path='*' component={NotFound} />
     </Router>
