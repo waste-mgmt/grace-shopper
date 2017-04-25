@@ -1,8 +1,8 @@
 'use strict'
 
-
 const db = require('APP/db')
 const Order = db.model('order')
+const OrderProduct = db.model('orderProduct')
 
 const {mustBeLoggedIn, forbidden} = require('./auth.filters')
 
@@ -15,8 +15,6 @@ module.exports = require('express').Router()
         const err = new Error ('No order found!');
         err.status = 404;
         throw err;
-        // how is this different from:
-        // res.status(404).send('No user found!)
       }
       req.order = foundOrder;
       next();
@@ -32,12 +30,23 @@ module.exports = require('express').Router()
     })
     .catch(next);
   })
-  // establish new order
+  // create new order from cart
   .post('/', (req, res, next) => {
-    Order.create(req.body)
-    .then(newOrder => res.status(201).send(newOrder))
+    Order.create(req.body.user) // req.body will have a user and cart (an array of objs with prod & qty)
+    .then(createdOrder => {
+      req.body.cart.forEach(pQ => {
+        return OrderProduct.create(pQ.quantity)
+        .then(op => {
+          op.setProduct(pq.product)
+          .then(opWithProd => {
+            opWithProd.setOrder(createdOrder)
+          })
+        })
+      })
+    })
     .catch(next);
   })
+
   // show one order
   .get('/:id', (req, res, next) => {
     res.send(req.order)

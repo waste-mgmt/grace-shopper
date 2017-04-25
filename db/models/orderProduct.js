@@ -9,9 +9,6 @@ module.exports = db => db.define('orderProduct', {
     type: INTEGER,
     defaultValue: 1,
     allowNull: false
-  },
-  unitPrice: {
-    type: INTEGER
   }
 })
 
