@@ -12,6 +12,8 @@ module.exports = require('express').Router()
           throw err;
         }
         req.product = foundProduct;
+        req.product.averageRating = foundProduct.averageRating();
+        req.product.reviews = foundProduct.getReviews();
         next();
       })
       .catch(next);
