@@ -15,11 +15,11 @@ export const Navbar = (props) => {
 						<span className="icon-bar"></span>
 						<span className="icon-bar"></span>
 					</button>
-					<Link to='/home' className="navbar-brand">Home</Link>
+					<Link to='/home' className="navbar-brand" style={{cursor: "pointer"}}>Home</Link>
 				</div>
 				<div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul className="nav navbar-nav">
-						<li className="active"><Link to='/cart'>Cart<span className="sr-only">(current)</span></Link></li>
+						<li className="active"><Link to='/cart' style={{cursor: "pointer"}}>Cart<span className="sr-only">(current)</span></Link></li>
 					</ul>
 				</div>
 				{
