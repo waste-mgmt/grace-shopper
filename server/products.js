@@ -9,11 +9,7 @@ module.exports = require('express').Router()
     Product.findOne({
       where: {
         id: id
-      },
-      include: [
-        model: User,
-        model: Review
-      ]
+      }
     })
       .then(foundProduct => {}
         if (!foundProduct) {
