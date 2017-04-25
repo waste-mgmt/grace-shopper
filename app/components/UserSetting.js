@@ -32,18 +32,18 @@ export class UserSetting extends React.Component {
 		return (
 				<form onSubmit={this.handleSubmit}>
 						<label>
-							First Name: {currentUser.firstName}
-							<input type="text" name="firstName" value={this.state.firstName} onChange={this.handleInputChange}/>
+							First Name:
+							<input type="text" name="firstName" value={this.state.firstName} placeholder={currentUser.firstName} onChange={this.handleInputChange}/>
 						</label>
 						<br />
 						<label>
-							Last Name: {currentUser.lastName}
-							<input type='text' name="lastName" value={this.state.lastName} onChange={this.handleInputChange} />
+							Last Name:
+							<input type='text' name="lastName" value={this.state.lastName} placeholder={currentUser.lastname}onChange={this.handleInputChange} />
 						</label>
 						<br />
 						<label>
 							Email: {currentUser.email}
-							<input type='text' name="email" value={this.state.email} onChange={this.handleInputChange}/>
+							<input type='text' name="email" value={this.state.email} placeholder={currentUser.email}onChange={this.handleInputChange}/>
 						</label>
 						<br />
 						<label>
