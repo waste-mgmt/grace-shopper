@@ -157,7 +157,7 @@ describe('/api/orders', () => {
             done();
           });
       });
-      it('get requests for updated order return updated order', done => {
+      it('makes get requests for updated order return updated order', done => {
         request(app)
           .get(`/api/orders/${o1}`)
           .expect(200)
