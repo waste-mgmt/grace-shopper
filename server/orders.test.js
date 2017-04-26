@@ -157,6 +157,15 @@ describe('/api/orders', () => {
             done();
           });
       });
+      it('get requests for updated order return updated order', done => {
+        request(app)
+          .get(`/api/orders/${o1}`)
+          .expect(200)
+          .end((err, res) => {
+            expect(res.body.firstName).to.equal('pavel');
+            done();
+          })
+      }
       it('shipping date set when order updated to "completed"', done => {
         request(app)
           .put(`/api/orders/${o1}`)
