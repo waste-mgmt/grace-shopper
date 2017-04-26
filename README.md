@@ -1,3 +1,3 @@
 check out our app
 
-https://guarded-savannah-94563.herokuapp.com/
+https://waste-mgmt.herokuapp.com/
