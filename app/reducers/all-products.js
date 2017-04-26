@@ -14,7 +14,7 @@ export const onAllProducts = () => {
   axios.get('/api/products')
   .then(response => {
     const allProducts = response.data
-    store.dispatch(gettingAllProducts(allProducts))
+    	dispatch(gettingAllProducts(allProducts))
   })
 }
 
