@@ -23,8 +23,8 @@ render(
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={App} >
+        <Route path="/home" component={AllProducts} onEnter={() => store.dispatch(onAllProducts())} />
         <IndexRedirect to="/home" />
-        <Route path="/home" component={AllProducts} onEnter={() => store.dispatch(onAllProducts)} />
         <Route path="/orders" component={AllOrders} />
         <Route path="/reviews" component={AllReviews} />
         <Route path="/user/:userId/setting" component={UserSetting}/>

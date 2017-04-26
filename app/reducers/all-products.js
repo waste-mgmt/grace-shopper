@@ -12,14 +12,15 @@ const initialAllProductState = []
 
 export const onAllProducts = () => {
 	return dispatch => {
-
-		axios.get('/api/products')
+		return axios.get('/api/products')
 		.then(response => {
 			const allProducts = response.data
 				dispatch(gettingAllProducts(allProducts))
-		})
+			})
 	}
 }
+
+
 
 export default function (state = initialAllProductState, action) {
 
